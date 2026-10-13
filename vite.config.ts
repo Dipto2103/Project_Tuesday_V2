@@ -7,7 +7,7 @@ import react from '@vitejs/plugin-react';
 // Replace 'The-martian-map' below with your exact repository name on GitHub.
 export default defineConfig({
   plugins: [react()],
-  base: '/The-martian-map/',   // <-- CHANGE THIS to match your exact GitHub repo name
+  base: '/Project_Mongol_Pathik_2/',   // GitHub Pages sub-path: https://Dipto2103.github.io/Project_Mongol_Pathik_2/
   server: {
     port: 3000,
     host: true
