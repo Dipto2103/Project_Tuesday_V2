@@ -1,9 +1,10 @@
 import React from 'react';
 import type { ProvenanceStatus } from '../../types/weather';
-import { ExternalLink, Database, AlertCircle, CheckCircle2, History } from 'lucide-react';
+import type { Provenance } from '../../core/types';
+import { ExternalLink, Database, AlertCircle, CheckCircle2, History, Sparkles, Cpu, ShieldAlert } from 'lucide-react';
 
 interface SourceBadgeProps {
-  status?: ProvenanceStatus;
+  status?: ProvenanceStatus | Provenance | string;
   sourceName: string;
   sourceUrl?: string;
   className?: string;
@@ -17,26 +18,44 @@ export const SourceBadge: React.FC<SourceBadgeProps> = ({
 }) => {
   const getStatusConfig = () => {
     switch (status) {
+      case 'MEASURED':
       case 'LIVE':
         return {
           bg: 'bg-emerald-950/80 border-emerald-500/40 text-emerald-300',
           dot: 'bg-emerald-400 animate-pulse',
-          label: 'LIVE TELEMETRY',
+          label: 'MEASURED / GROUND TRUTH',
           icon: CheckCircle2
         };
+      case 'NASA-DERIVED':
       case 'CACHED':
         return {
-          bg: 'bg-blue-950/80 border-blue-500/40 text-blue-300',
-          dot: 'bg-blue-400',
-          label: 'CACHED',
+          bg: 'bg-sky-950/80 border-sky-500/40 text-sky-300',
+          dot: 'bg-sky-400',
+          label: 'NASA-DERIVED',
           icon: Database
         };
+      case 'MODELED':
+        return {
+          bg: 'bg-indigo-950/80 border-indigo-500/40 text-indigo-300',
+          dot: 'bg-indigo-400',
+          label: 'MODELED ESTIMATE',
+          icon: Cpu
+        };
+      case 'SIMULATED':
       case 'HISTORICAL':
         return {
           bg: 'bg-amber-950/80 border-amber-500/40 text-amber-300',
           dot: 'bg-amber-400',
-          label: 'ARCHIVED / PDS',
+          label: 'SIMULATED ASSUMPTION',
           icon: History
+        };
+      case 'UNKNOWN':
+      case 'UNAVAILABLE':
+        return {
+          bg: 'bg-rose-950/80 border-rose-500/40 text-rose-300',
+          dot: 'bg-rose-400',
+          label: 'UNKNOWN / UNMEASURED',
+          icon: ShieldAlert
         };
       case 'DEMO':
         return {
@@ -45,12 +64,11 @@ export const SourceBadge: React.FC<SourceBadgeProps> = ({
           label: 'ILLUSTRATIVE DEMO',
           icon: AlertCircle
         };
-      case 'UNAVAILABLE':
       default:
         return {
-          bg: 'bg-red-950/80 border-red-500/40 text-red-300',
-          dot: 'bg-red-400',
-          label: 'DATA UNAVAILABLE',
+          bg: 'bg-slate-900 border-slate-700 text-slate-300',
+          dot: 'bg-slate-400',
+          label: String(status).toUpperCase(),
           icon: AlertCircle
         };
     }

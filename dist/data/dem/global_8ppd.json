@@ -1,0 +1,13 @@
+{
+  "latOrigin": 90.0,
+  "lonOrigin": 0.0,
+  "width": 2880,
+  "height": 1440,
+  "ppd": 8,
+  "scale": 1.0,
+  "nodata": -32768,
+  "minElevationM": -7190,
+  "maxElevationM": 15362,
+  "source": "NASA MGS MOLA MEGDR Laser Altimetry Calibration",
+  "provenance": "NASA-DERIVED"
+}

@@ -1,0 +1,49 @@
+# MARS LANTERN — Agent & LLM Interface Reference
+
+> **App Name:** MARS LANTERN  
+> **Tagline:** Carry the light. Read the planet.  
+> **Challenge:** NASA Space Apps 2026 — Interplanetary Survival Guide: Martian Map (Challenge 11)  
+> **Data Root:** `public/data/` (or `${BASE_URL}data/`)
+
+---
+
+## 1. Provenance Legend
+Every scientific data point in MARS LANTERN carries an explicit provenance badge:
+- `MEASURED`: In-situ physical ground-truth from a verified landed mission (e.g. Phoenix ice trench, Perseverance MEDA telemetry, MOXIE O₂ extraction, Curiosity ChemCam).
+- `NASA-DERIVED`: Direct orbital instrument product or authoritative peer-reviewed cartography (e.g. MGS MOLA DEM, CRISM mineralogy, SWIM shallow ice likelihood, HiRISE RSL repose angles).
+- `MODELED`: Deterministic mathematical engineering approximation anchored to a measured reference (e.g. Allison & McEwen 2000 Mars24 ephemeris, diurnal thermal model). Carries labeled uncertainty (e.g. ±15 K).
+- `SIMULATED`: Parametric mission or life-support simulation assumption based on NASA human mission architectures (e.g. EVA metabolic rates, 85% ECLSS water recovery).
+- `UNKNOWN`: Missing or unmeasured terrain. **Never marked as safe.**
+
+---
+
+## 2. Scientific Guardrails
+- **Recurring Slope Lineae (RSL):** Per USGS/HiRISE findings across 151 features, RSL occur on slopes steeper than 27° (matching dry granular repose angles). RSL are dry granular slip-face hazards, NOT liquid water aquifers.
+- **Water-Ice Likelihood:** Subsurface Water Ice Mapping (SWIM) data maps radar and neutron likelihood of shallow ice (0–5 m depth), not confirmed deposits, except at directly measured lander sites (Phoenix Green Valley, 68.2°N).
+- **MOLA DEM Resolution:** MOLA DEM 463 m cannot resolve boulder-scale or small scarp hazards. Slopes represent regional gradients over ~1–3 km.
+
+---
+
+## 3. Machine-Readable Endpoints (`public/data/`)
+
+| File | Purpose | Format |
+|---|---|---|
+| `checkpoints.json` | 42+ verified planetary landmarks, science sites, resource zones, and hazards | JSON Array of `Checkpoint` |
+| `layers.json` | WMTS layer capabilities and tile URL templates for Mars Trek | JSON Array of `LayerMeta` |
+| `sources.json` | Registry of NASA sources, citations, and access modes | JSON Array of `SourceEntry` |
+| `stars.json` | Prominent navigation stars for Mars sky dome | JSON Array of stars |
+| `articles.json` | Field manual science directives and survival protocols | JSON Array of `Article` |
+| `manifest.json` | Catalog build metadata, checksums, and schema versions | JSON Object |
+| `dem/global_8ppd.bin.gz` | MGS MOLA elevation grid at 8 px/deg (2880×1440, int16 meters) | Gzip binary |
+
+---
+
+## 4. MCP Server Tools (`mcp/server.ts`)
+Run locally via stdio or inspector: `npx tsx mcp/server.ts`
+- `list_checkpoints`: Filter checkpoints by resource type, kind, or geographic bounding box.
+- `get_location_report`: Get terrain quality, modeled temperature, nearest resources, and hazards for any Mars coordinate or name.
+- `find_resources_near`: Search for resources within a radius (km) of a coordinate.
+- `plan_route`: 8-connected A* terrain-aware pathfinding on MOLA DEM elevation grid.
+- `evaluate_mission`: Comprehensive life support budget and multi-leg feasibility engine.
+- `get_mars_sky`: Mars24 areocentric solar longitude (Ls), LTST, sun elevation, and Phobos/Deimos ephemeris.
+- `search_nasa_images`: Dynamic search against NASA Planetary Image Library.

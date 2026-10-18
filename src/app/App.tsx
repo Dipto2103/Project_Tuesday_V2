@@ -1,249 +1,178 @@
-import React, { useState, useCallback } from 'react';
-import { AppHeader } from '../components/layout/AppHeader';
-import { Sidebar, ActiveTab } from '../components/layout/Sidebar';
-import { StatusBar } from '../components/layout/StatusBar';
-import { MarsMap } from '../components/map/MarsMap';
-import { MapControls } from '../components/map/MapControls';
-import { MapLegend } from '../components/map/MapLegend';
-import { MapLayers } from '../components/map/MapLayers';
-import { RoutePlanner } from '../components/route/RoutePlanner';
-import { RouteComparison } from '../components/route/RouteComparison';
-import { MissionSummary } from '../components/route/MissionSummary';
-import { RoverExplorer } from '../components/route/RoverExplorer';
-import { SciencePanel } from '../components/science/SciencePanel';
-import { HazardPanel } from '../components/hazards/HazardPanel';
-import { EnvironmentPanel } from '../components/environment/EnvironmentPanel';
-import { TerrainPanel } from '../components/terrain/TerrainPanel';
-import { DocumentationModal } from '../components/common/DocumentationModal';
+import React, { Suspense, lazy } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { AppShell } from '../components/layout/AppShell';
+import { PageSkeleton } from '../components/ui/PageSkeleton';
 
-import { useMarsLayers } from '../hooks/useMarsLayers';
-import { useRoutePlanner } from '../hooks/useRoutePlanner';
-import { SCIENCE_CATALOG } from '../data/scienceCatalog';
-import { HAZARDS_CATALOG } from '../data/hazardsCatalog';
-import type { MarsCoordinate } from '../types/route';
-import type { ScienceObservation } from '../types/science';
-import type { HazardRecord } from '../types/hazards';
+// Lazy-loaded pages for fast code-splitting and performance
+const LandingPage = lazy(() => import('../pages/LandingPage').then((m) => ({ default: m.LandingPage })));
+const MapPage = lazy(() => import('../pages/MapPage').then((m) => ({ default: m.MapPage })));
+const SatellitePage = lazy(() => import('../pages/SatellitePage').then((m) => ({ default: m.SatellitePage })));
+const SkyPage = lazy(() => import('../pages/SkyPage').then((m) => ({ default: m.SkyPage })));
+
+const PlannerPage = lazy(() => import('../pages/PlannerPage').then((m) => ({ default: m.PlannerPage })));
+const RoutePlannerPage = lazy(() => import('../pages/RoutePlannerPage').then((m) => ({ default: m.RoutePlannerPage })));
+const CompareRoutesPage = lazy(() => import('../pages/CompareRoutesPage').then((m) => ({ default: m.CompareRoutesPage })));
+const BriefingPage = lazy(() => import('../pages/BriefingPage').then((m) => ({ default: m.BriefingPage })));
+const RoverExplorerPage = lazy(() => import('../pages/RoverExplorerPage').then((m) => ({ default: m.RoverExplorerPage })));
+
+const SurvivalPage = lazy(() => import('../pages/SurvivalPage').then((m) => ({ default: m.SurvivalPage })));
+const FieldManualPage = lazy(() => import('../pages/FieldManualPage').then((m) => ({ default: m.FieldManualPage })));
+const TerrainPage = lazy(() => import('../pages/TerrainPage').then((m) => ({ default: m.TerrainPage })));
+const HazardPage = lazy(() => import('../pages/HazardPage').then((m) => ({ default: m.HazardPage })));
+const SciencePage = lazy(() => import('../pages/SciencePage').then((m) => ({ default: m.SciencePage })));
+const WeatherPage = lazy(() => import('../pages/WeatherPage').then((m) => ({ default: m.WeatherPage })));
+const AboutPage = lazy(() => import('../pages/AboutPage').then((m) => ({ default: m.AboutPage })));
 
 export const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<ActiveTab>('route-plan');
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [isDocsOpen, setIsDocsOpen] = useState(false);
-  const [currentRegionName, setCurrentRegionName] = useState('Jezero Crater (Western Fan Delta)');
-
-  const [cursorCoord, setCursorCoord] = useState<MarsCoordinate | null>(null);
-  const [selectedCoord, setSelectedCoord] = useState<MarsCoordinate | null>(null);
-  const [centerTarget, setCenterTarget] = useState<MarsCoordinate | null>(null);
-
-  const [selectedPOI, setSelectedPOI] = useState<ScienceObservation | null>(null);
-  const [selectedHazard, setSelectedHazard] = useState<HazardRecord | null>(null);
-
-  // Custom Hooks
-  const { layers, activeBaseLayer, activeOverlays, toggleLayer, setLayerOpacity } = useMarsLayers();
-  const {
-    startCoord,
-    destCoord,
-    setStartCoord,
-    setDestCoord,
-    method,
-    setMethod,
-    walkingSpeedKmh,
-    setWalkingSpeedKmh,
-    maxSlopeDeg,
-    setMaxSlopeDeg,
-    primaryRoute,
-    alternativeRoute,
-    hazardAssessment,
-    nearbyScienceTargets,
-    planningError,
-    isPlanning,
-    generateRoute,
-    swapLocations,
-    clearRoute
-  } = useRoutePlanner();
-
-  // Handlers
-  const handleSelectCoordinate = useCallback((coord: MarsCoordinate) => {
-    setSelectedCoord(coord);
-  }, []);
-
-  const handleSetStart = useCallback((coord: MarsCoordinate) => {
-    setStartCoord(coord);
-    setActiveTab('route-plan');
-  }, [setStartCoord]);
-
-  const handleSetDestination = useCallback((coord: MarsCoordinate) => {
-    setDestCoord(coord);
-    setActiveTab('route-plan');
-  }, [setDestCoord]);
-
-  const handleCenterMap = useCallback((coord: MarsCoordinate) => {
-    setCenterTarget({ ...coord });
-  }, []);
-
-  const handleSelectPresetLocation = useCallback((coord: MarsCoordinate, name: string) => {
-    setCurrentRegionName(name);
-    setCenterTarget({ ...coord });
-    setSelectedCoord(coord);
-  }, []);
-
-  const handleZoomIn = () => {
-    // Leaflet zoom handled via native keyboard or container methods if needed
-    window.dispatchEvent(new CustomEvent('ares-zoom-in'));
-  };
-
-  const handleZoomOut = () => {
-    window.dispatchEvent(new CustomEvent('ares-zoom-out'));
-  };
-
-  const handleResetView = () => {
-    setCenterTarget({ latitude: 18.4447, longitude: 77.4508 });
-    setCurrentRegionName('Jezero Crater (Western Fan Delta)');
-  };
-
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-mars-darkest font-sans select-none">
-      {/* Top Header */}
-      <AppHeader
-        currentRegionName={currentRegionName}
-        onSelectPresetLocation={handleSelectPresetLocation}
-        onOpenDocs={() => setIsDocsOpen(true)}
-        onToggleLayerDrawer={() => setActiveTab('layers')}
-      />
-
-      {/* Main Workspace: Left Sidebar + Central Map + Right Context Panel */}
-      <div className="flex flex-1 overflow-hidden relative">
-        {/* Left Navigation Sidebar */}
-        <Sidebar
-          activeTab={activeTab}
-          onSelectTab={setActiveTab}
-          isCollapsed={isSidebarCollapsed}
-          onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-          hasActiveRoute={!!primaryRoute}
-          hazardCount={HAZARDS_CATALOG.length}
-          scienceCount={SCIENCE_CATALOG.length}
+    <Routes>
+      <Route element={<AppShell />}>
+        {/* Core Concept Board Pages */}
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <LandingPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/map"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <MapPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/satellite"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <SatellitePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/sky"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <SkyPage />
+            </Suspense>
+          }
         />
 
-        {/* Central Map Canvas */}
-        <main className="flex-1 relative h-full overflow-hidden">
-          <MarsMap
-            activeBaseLayer={activeBaseLayer}
-            activeOverlays={activeOverlays}
-            startCoord={startCoord}
-            destCoord={destCoord}
-            primaryRoute={primaryRoute}
-            alternativeRoute={alternativeRoute}
-            sciencePOIs={SCIENCE_CATALOG}
-            hazards={HAZARDS_CATALOG}
-            onSelectCoordinate={handleSelectCoordinate}
-            onSetStart={handleSetStart}
-            onSetDestination={handleSetDestination}
-            onCursorMove={setCursorCoord}
-            selectedPOI={selectedPOI}
-            selectedHazard={selectedHazard}
-            centerTarget={centerTarget}
-          />
+        {/* Mission Planning Group */}
+        <Route
+          path="/planner"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <PlannerPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/planner/route"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <RoutePlannerPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/planner/compare"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <CompareRoutesPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/planner/briefing"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <BriefingPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/rovers"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <RoverExplorerPage />
+            </Suspense>
+          }
+        />
 
-          {/* Floating Map Controls & Search */}
-          <MapControls
-            onZoomIn={handleZoomIn}
-            onZoomOut={handleZoomOut}
-            onResetView={handleResetView}
-            onNavigateCoordinates={handleCenterMap}
-          />
+        {/* Survival & Field Manual Group */}
+        <Route
+          path="/survival"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <SurvivalPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/manual"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <FieldManualPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/terrain"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <TerrainPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/hazards"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <HazardPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/science"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <SciencePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/weather"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <WeatherPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <Suspense fallback={<PageSkeleton />}>
+              <AboutPage />
+            </Suspense>
+          }
+        />
 
-          {/* Cartographic Legend */}
-          <MapLegend />
-        </main>
+        {/* Legacy Route Aliases for Seamless Backward Compatibility */}
+        <Route path="/route-plan" element={<Navigate to="/planner/route" replace />} />
+        <Route path="/mission-builder" element={<Navigate to="/planner" replace />} />
+        <Route path="/route-compare" element={<Navigate to="/planner/compare" replace />} />
+        <Route path="/mission-brief" element={<Navigate to="/planner/briefing" replace />} />
+        <Route path="/rover-explorer" element={<Navigate to="/rovers" replace />} />
+        <Route path="/layers" element={<Navigate to="/map" replace />} />
+        <Route path="/environment" element={<Navigate to="/weather" replace />} />
 
-        {/* Right Mission Intel Context Panel */}
-        <aside className="w-96 border-l border-mars-border bg-mars-dark/95 backdrop-blur flex flex-col z-10 shrink-0 overflow-hidden shadow-2xl">
-          <div className="flex-1 overflow-y-auto p-4">
-            {activeTab === 'layers' && (
-              <MapLayers
-                layers={layers}
-                onToggleLayer={toggleLayer}
-                onSetOpacity={setLayerOpacity}
-              />
-            )}
-
-            {activeTab === 'route-plan' && (
-              <RoutePlanner
-                startCoord={startCoord}
-                destCoord={destCoord}
-                onSetStart={handleSetStart}
-                onSetDestination={handleSetDestination}
-                method={method}
-                onSetMethod={setMethod}
-                walkingSpeedKmh={walkingSpeedKmh}
-                onSetWalkingSpeed={setWalkingSpeedKmh}
-                maxSlopeDeg={maxSlopeDeg}
-                onSetMaxSlope={setMaxSlopeDeg}
-                onGenerateRoute={generateRoute}
-                onSwapLocations={swapLocations}
-                onClearRoute={clearRoute}
-                primaryRoute={primaryRoute}
-                planningError={planningError}
-                isPlanning={isPlanning}
-              />
-            )}
-
-            {activeTab === 'route-compare' && (
-              <RouteComparison
-                primaryRoute={primaryRoute}
-                alternativeRoute={alternativeRoute}
-              />
-            )}
-
-            {activeTab === 'mission-brief' && (
-              <MissionSummary
-                route={primaryRoute}
-                hazardAssessment={hazardAssessment}
-                nearbyScienceTargets={nearbyScienceTargets}
-              />
-            )}
-
-            {activeTab === 'rover-explorer' && (
-              <RoverExplorer
-                onCenterMap={handleCenterMap}
-                onSetStart={handleSetStart}
-                onSetDestination={handleSetDestination}
-              />
-            )}
-
-            {activeTab === 'terrain' && <TerrainPanel />}
-
-            {activeTab === 'hazards' && (
-              <HazardPanel
-                onCenterMap={handleCenterMap}
-                selectedHazard={selectedHazard}
-              />
-            )}
-
-            {activeTab === 'science' && (
-              <SciencePanel
-                onCenterMap={handleCenterMap}
-                onConsiderForRoute={handleSetDestination}
-              />
-            )}
-
-            {activeTab === 'environment' && <EnvironmentPanel />}
-          </div>
-        </aside>
-      </div>
-
-      {/* Bottom Status Bar */}
-      <StatusBar
-        cursorCoord={cursorCoord}
-        selectedCoord={selectedCoord}
-        selectedElevation={selectedCoord?.elevationMeters}
-        activeBaseLayerName={activeBaseLayer.name}
-      />
-
-      {/* Documentation Modal */}
-      <DocumentationModal
-        isOpen={isDocsOpen}
-        onClose={() => setIsDocsOpen(false)}
-      />
-    </div>
+        {/* 404 Fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+    </Routes>
   );
 };

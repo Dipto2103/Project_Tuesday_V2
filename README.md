@@ -1,54 +1,73 @@
-# ARES — Astronaut Route & Exploration System
-### NASA Space Apps Challenge 2026
-**Challenge Category:** *Interplanetary Survival Guide: Martian Map*  
-**Project Type:** Interactive Planetary Mapping & Survival-Planning Web Application  
-**Development Environment:** Google Antigravity IDE  
+# MARS LANTERN — Martian Survival Atlas & Exploration System
+
+> *"Carry the light. Read the planet."*
+
+**Challenge:** NASA Space Apps Challenge 2026 — *Interplanetary Survival Guide: Martian Map* (Challenge 11)  
+**Live Application:** Static GitHub Pages Deployment (`HashRouter`) + Local Model Context Protocol (MCP) Server  
+**Framework:** React 18, TypeScript (Strict Mode), Vite, Tailwind CSS, Leaflet 1.9, Recharts  
 
 ---
 
-## 1. Project Overview
+## 1. Overview
 
-Mars presents a fundamentally hostile and unforgiving environment for future human extravehicular activities (EVAs). Its surface is characterized by steep crater scarps, boulder-strewn talus slopes, active sand ripples with mobility-entrapment hazards, and unmeasured data gaps.
+**MARS LANTERN** is a deterministic, NASA-data-grounded planetary cartography workstation and exploration atlas. Built for future human astronauts, planetary scientists, and mission planners, it transforms raw orbital remote sensing, rover telemetry, and digital elevation models into actionable survival intelligence.
 
-**ARES (Astronaut Route & Exploration System)** is an interactive, NASA-data-driven exploration workstation designed to help future Mars astronauts, planetary scientists, and mission planners evaluate surface traversability, identify scientific targets, inspect environmental hazards, reconstruct historical rover movements, and formulate operational mission plans.
+### Key Capabilities
 
-### Core Capabilities:
-1. **Martian Explorer:** Real NASA planetary cartography powered by [NASA Mars Trek Portal](https://trek.nasa.gov/mars/index.html) WMTS tile services, Viking Color Mosaics, MOLA Shaded Relief, and the OpenPlanetary global basemap.
-2. **Terrain Intelligence:** Digital elevation models calculating numerical slope gradients:
-   $$\theta = \tan^{-1}\left(\sqrt{\left(\frac{\partial z}{\partial x}\right)^2 + \left(\frac{\partial z}{\partial y}\right)^2}\right)$$
-   with documented traversability thresholds and strict data-gap penalties.
-3. **Multi-Mode Route Planning:**
-   - **Mode A (Direct Distance):** Spherical Haversine distance calculations ($R_{\text{Mars}} = 3,389.5\text{ km}$) with explicit warnings that direct paths are unverified for surface safety.
-   - **Mode B (Terrain-Aware A\*):** 8-connected grid pathfinding incorporating distance, slope steepness, surface roughness, and hazard zones to route astronauts through gentle ramp corridors while circumventing steep escarpments.
-   - **Mode C (Historical Rover Reference):** Reconstructs validated rover traverses from NASA PDS archives. Computes route-to-traverse proximity metrics while preserving the scientific distinction that robotic paths do not guarantee human EVA walkability.
-4. **Historical Rover Intelligence & Rover Explorer:**
-   - Curiosity (MSL) traverse through Gale Crater reconstructed from NASA PDS PLACES archives (`MSL-M-ROVER-6-RDR-PLACES-V1.0`).
-   - Perseverance (Mars 2020) traverse across the Jezero Western Fan Delta and Neretva Vallis.
-   - Interactive milestone browser with sol numbers, site names, elevations, and geological context.
-5. **Survival Intelligence & Hazard Mitigation:** Monitored catalog of verified hazards (Jezero Delta Front Escarpment, Kodiak Mesa Precipice, Bagnold Dunes, Olympus Mons Basal Scarp) with severity ratings and actionable mitigation directives.
-6. **Science Explorer:** Verified astrobiological and geological observation catalog from the NASA Planetary Data System (PDS), including ancient delta deposits, volcanic calderas, and subsurface water ice sheets.
-7. **Operational Mission Briefing:** Comprehensive briefing compiling distance, duration, elevation gain, interactive Recharts elevation profile, rover proximity context, hazard mitigations, and exportable JSON / printable reports.
+1. **Equirectangular Bounded Map Engine (`EPSG:4326`):**
+   - Strictly bounded `[[-90, -180], [90, 180]]` with `maxBoundsViscosity: 1.0` and `noWrap: true`. Eliminates infinite world-wrapping and render-loop CPU thrashing.
+   - Live NASA Mars Trek WMTS tile mosaics (Viking Color 232 m, MOLA Shaded Relief 463 m, MOC Atlas, HRSC/HiRISE).
+   - High-resolution offline fallback basemap (`public/tiles/fallback-global.jpg`) with automatic failover after 5 tile errors.
+
+2. **Verified Checkpoint & Resource Catalog:**
+   - 42 verified checkpoints spanning landing sites, scientific targets, and resource zones.
+   - Resource categorization: shallow water-ice (SWIM project radar/neutron likelihood), clay phyllosilicates (CRISM), basaltic regolith, sulfates, iron oxides, and atmospheric $\text{CO}_2$ (feedstock for MOXIE oxygen generation).
+   - Strict NASA scientific guardrail: **Recurring Slope Lineae (RSL) are dry granular flows on slopes $>27^\circ$, NOT water resources.** Classified strictly as hazards.
+
+3. **Deterministic Topography, Terrain Scoring & Temperature:**
+   - Global MGS MOLA MEGDR elevation grid at 8 px/deg (2880×1440, int16 meters, 1.54 MB gzip) plus 128 px/deg regional DEM windows for 20 priority sites.
+   - Deterministic 4-term terrain quality score:
+     $$\text{Penalty} = 0.45 \cdot \text{slopeTerm} + 0.25 \cdot \text{roughTerm} + 0.20 \cdot \text{hazardTerm} + 0.10 \cdot \text{uncertainty}$$
+   - Modeled surface temperature anchored to Perseverance MEDA ground truth (-83 °C pre-dawn to +5 °C noon, 88 K diurnal swing) with labeled $\pm 15\,\text{K}$ uncertainty.
+
+4. **Planetary Routing Engine (A\* & Web Worker):**
+   - 8-connected grid search across MOLA elevation data running in a background Web Worker.
+   - Enforces vehicle slope limits (EVA 15°, unpressurized rover 20°, pressurized rover 25°).
+   - Dual route generation: Primary (shortest feasible terrain-aware path) vs Alternative (lowest-hazard conservative path).
+   - Scientific policy: Unmeasured terrain is treated as impassable by default.
+
+5. **Mission Builder & Evaluation Engine:**
+   - Multi-stop expedition wizard with 9 selectable scientific objectives.
+   - Consumables budget formulas: $\text{O}_2$, $\text{H}_2\text{O}$ (85% ECLSS recovery), food, and battery power.
+   - 4 separate verdicts: Resource, Terrain, Schedule/Daylight, and Data Coverage. Overall verdict equals $\min(\dots)$.
+   - Zero-backend URL-hash state sharing (`#mission=...`) and Markdown/JSON export.
+
+6. **Satellite Views & Mars Sky Module:**
+   - Orbital remote sensing panel with high-resolution target minimap, 10/50/100 km range rings, and dynamic NASA Image Library search.
+   - Allison & McEwen (2000) Mars24 ephemeris engine calculating $L_s$ (solar longitude), sol, LTST, sun elevation, daylight hours, Phobos/Deimos visibility, and Earth elongation.
+   - 2D Canvas sky dome with atmospheric dust optical depth ($\tau$) and realistic blue sunrise/sunset scattering halo.
+   - Embedded NASA Eyes on the Solar System 3D view.
+
+7. **Survival Center & Field Manual:**
+   - Real-time simulation of active mission consumables countdown and point-of-no-return return-to-base abort envelope.
+   - Contingency injection: ECLSS membrane failure, global dust storms, and drivetrain degradation.
+   - Searchable field manual linking operational directives to interactive map coordinates.
+
+8. **Local Model Context Protocol (MCP) Server:**
+   - Exposes 7 core tools sharing pure TypeScript logic in `src/core/` via standard stdio transport for AI agents.
 
 ---
 
-## 2. Technology Stack & Dual-Engine Architecture
+## 2. Scientific Data Provenance & Badging
 
-ARES features a **dual-engine architecture**:
-- **Primary Engine:** High-performance Python FastAPI backend utilizing NumPy and SciPy for raster slope derivations and graph A* search.
-- **Client Fallback Engine:** Pure TypeScript client-side pathfinding with local calibrated DEM matrices (zero downtime if backend is offline).
+Every number, metric, and layer carries an explicit provenance badge:
+- `MEASURED`: In-situ ground truth (Phoenix water ice, Perseverance MEDA weather, MOXIE O₂ extraction, Curiosity ChemCam).
+- `NASA-DERIVED`: Direct orbital instrument product or authoritative peer-reviewed cartography (MGS MOLA DEM, CRISM mineralogy, SWIM ice likelihood, HiRISE RSL repose angles).
+- `MODELED`: Deterministic mathematical engineering approximation anchored to a measured reference (Mars24 ephemeris, diurnal thermal model $\pm 15\,\text{K}$).
+- `SIMULATED`: Parametric assumption based on NASA human mission architectures (EVA metabolic rates, ECLSS recycling rates).
+- `UNKNOWN`: Missing or unmeasured terrain. **Never marked as safe.**
 
-### Frontend:
-- **Framework:** React 18, TypeScript (Strict Mode), Vite
-- **Styling:** Tailwind CSS (Dark Planetary Mission Control theme)
-- **Map Engine:** Leaflet, React-Leaflet (custom high-contrast SVG divIcons, tile coordinate normalization)
-- **Data Visualization:** Recharts (Dynamic elevation profile area charts)
-- **Icons:** Lucide React
-- **Unit Testing:** Vitest (17 tests across 4 test suites)
-
-### Backend:
-- **Framework:** Python 3.14+, FastAPI, Uvicorn
-- **Data Processing:** NumPy, SciPy, Pydantic v2
-- **Unit Testing:** Pytest (7 tests covering terrain status, rover traverses, and A* routing)
+See [docs/DATA_PROVENANCE.md](docs/DATA_PROVENANCE.md) for complete details.
 
 ---
 
@@ -56,56 +75,66 @@ ARES features a **dual-engine architecture**:
 
 ### Prerequisites
 - Node.js LTS (v18+ or v20+)
-- Python 3.10+
+- PowerShell (Windows) or Bash (macOS/Linux)
 
-### Launching the Frontend
+### Installation & Local Development
 ```powershell
-# In PowerShell (always prepend Node path if npm policy is restricted):
-$env:PATH = "C:\Users\User\AppData\Local\OpenAI\Codex\runtimes\cua_node\e0c305cbb434431d\bin;$env:PATH"
+# Prepend Node path if required:
+$env:PATH = "C:\Users\User\AppData\Local\Programs\nodejs;" + $env:PATH
 
-# Install dependencies
-npm.cmd install
+# Clean install dependencies
+npm ci
 
-# Start development server (port 3000)
-npm.cmd run dev
+# Launch local development server (port 3000)
+npm run dev
 
-# Run Vitest test suite
-npm.cmd test
+# Run automated Vitest test suite (16 suites, 80 tests)
+npm test
 
-# Build for production
-npm.cmd run build
+# Build production bundle
+npm run build
 ```
 
-### Launching the Optional Backend (FastAPI)
-```powershell
-# Start Uvicorn backend server (port 8000)
-python -m uvicorn backend.app.main:app --reload --port 8000
+### Offline Mode Demonstration (`?offline=1`)
+To run MARS LANTERN with Wi-Fi disabled or in offline demonstration mode, open:
+`http://localhost:3000/?offline=1`
+All dynamic API queries gracefully fall back to local committed fixtures in `public/data/fixtures/`, the basemap switches to the pre-rendered offline global mosaic, and a prominent `⚡ OFFLINE MODE` badge appears in the top navigation bar.
 
-# Run Pytest backend test suite
-python -m pytest backend/tests/test_backend.py
+### Running the Local MCP Server
+```powershell
+npx tsx mcp/server.ts
+```
+To inspect with the Model Context Protocol Inspector:
+```powershell
+npx @modelcontextprotocol/inspector npx tsx mcp/server.ts
 ```
 
 ---
 
-## 4. Scientific Validation & Testing Results
+## 4. Automated Testing & Verification Gates
 
-A total of **24 automated tests** (17 Vitest + 7 Pytest) validate the entire system:
-
-1. **Mars Distance Algorithms (6 tests):** Verified against spherical trigonometry with Mars mean radius $R = 3,389.5\text{ km}$, coordinate validation, and longitude antimeridian normalization.
-2. **Slope & Terrain Cost Formulation (3 tests):** Validated against known analytical gradients ($20\text{ m}$ rise over $100\text{ m}$ run $= 11.31^\circ$) and non-linear slope penalties.
-3. **A\* Pathfinding & Obstacle Avoidance (4 tests):** Confirms path reconstruction through gentle ramp corridors while excluding slopes $>22^\circ$ and handling unreachable targets.
-4. **Rover Traverses & PDS Integrity (4 tests):** Validates Curiosity and Perseverance coordinates, monotonic sol ranges, proximity calculations, and mandatory scientific caveat flags.
-5. **Backend API Endpoints (7 tests):** Validates health checks, terrain status, GeoJSON traverse exports, and terrain-aware routing responses.
+The test suite validates the entire deterministic core:
+- `tests/calibration.test.ts`: Geodetic calibration of Olympus Mons (18.65°N, 226.2°E), Jezero Crater (18.44°N, 77.45°E), and Gale Crater (4.59°S, 137.44°E).
+- `tests/sky.test.ts`: Mars24 ephemeris math, MY 34/35 sanity checks, and Phobos prograde orbit verification.
+- `tests/routeCore.test.ts`: A* pathfinding, slope limits, obstacle circumnavigation, and dual-route calculation.
+- `tests/mission.test.ts`: Consumable budgets, objective resource matching, and URL-hash roundtrip serialization.
+- `tests/mcpAndData.test.ts`: Data manifest, LLM reference, and source registry integrity.
+- `tests/report.test.ts`: Location dossier generation, terrain scores, and hazard radiuses.
 
 ---
 
-## 5. Official NASA Resources & Provenance
+## 5. Known Limitations (Spec §19)
 
-- [NASA Space Apps Challenge 2026](https://www.spaceappschallenge.org/2026/)
-- [NASA Mars Trek Portal](https://trek.nasa.gov/mars/index.html)
-- [NASA Mars Trek API Documentation](https://trek.nasa.gov/tiles/apidoc/trekAPI.html?body=mars)
-- [Curiosity Rover PLACES Dataset](https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=MSL-M-ROVER-6-RDR-PLACES-V1.0)
-- [Curiosity PLACES Archive Bundle](https://pds.nasa.gov/ds-view/pds/viewBundle.jsp?identifier=urn%3Anasa%3Apds%3Amsl_places&version=39.0)
-- [Where is Curiosity? Interactive Map](https://science.nasa.gov/mission/msl-curiosity/location-map/)
-- [Where is Perseverance? Interactive Map](https://mars.nasa.gov/mars2020/mission/science/traverse-map/)
-- [NASA Planetary Data System (PDS)](https://pds.nasa.gov/)
+- **DEM Resolution Limit:** MOLA at 463 m/px cannot resolve boulder-scale obstacles, meter-scale scarps, or sand dunes. Slope/roughness reflect regional gradients.
+- **Modeled Temperature:** Surface temperature is a labeled engineering estimate ($\pm 15\,\text{K}$ uncertainty) unless anchored within 500 km of a cited lander log.
+- **SWIM Zones:** SWIM maps shallow ice *likelihood*, not confirmed deposits (outside direct in-situ lander sites like Phoenix).
+- **Natural Satellites:** Phobos and Deimos positions are approximate equatorial orbits.
+- **Life Support Numbers:** Consumable rates are simulation assumptions derived from NASA BVAD literature, not flight-certified rules.
+- **Trek Tile Services:** Dependent on NASA WMTS server uptime. Fallback offline basemap activates automatically if unavailable.
+
+---
+
+## 6. License & AI Transparency
+
+- **License:** Apache-2.0 (Open Source for NASA Space Apps Challenge).
+- **AI Use Documentation:** Full architectural disclosures, prompts, and phase logs are maintained in [docs/AI_USE.md](docs/AI_USE.md).

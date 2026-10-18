@@ -1,0 +1,81 @@
+[
+  {
+    "id": "water-ice-survival",
+    "title": "Subsurface Water-Ice & ISRU Extraction",
+    "category": "survival",
+    "summary": "Accessing shallow water-ice on Mars: SWIM project radar evidence, extraction techniques (Rodwell well), and life-support purification.",
+    "content": "Water is the cornerstone of Martian survival and fuel synthesis (ISRU methalox via Sabatier). NASA's Subsurface Water Ice Mapping (SWIM) project has synthesized SHARAD radar, neutron spectrometry, and thermal inertia to identify shallow sheet ice within 1–5 meters of the surface in Arcadia Planitia, Acidalia Planitia, and Utopia Planitia.\n\nExtraction on Mars cannot rely on open surface melting due to the 6.1 mbar atmospheric pressure (below the triple point of water at 6.11 mbar), which causes rapid sublimation into vapor. Instead, a Rodriguez Well (Rodwell) system drills into the ice deposit, circulates heated water in a sealed subsurface cavity, and pumps the liquid meltwater directly into pressurized storage tanks.\n\nCRITICAL DIRECT MEASUREMENT: The Phoenix lander (Green Valley, 68.2°N) directly exposed pure water ice with its robotic trenching arm, which sublimated over 4 sols, confirming accessible water ice at 5 cm depth.",
+    "tags": ["water", "isru", "ice", "swim", "phoenix"],
+    "checkpoints": ["phoenix-green-valley", "arcadia-planitia-ice", "utopia-planitia-ice", "korolev-crater"],
+    "sources": [
+      { "title": "NASA Subsurface Water Ice Mapping (SWIM)", "url": "https://swim.psi.edu" },
+      { "title": "Phoenix Mars Lander Water Ice Confirmation", "url": "https://www.nasa.gov/mission_pages/phoenix/main/index.html" }
+    ],
+    "provenance": "MEASURED"
+  },
+  {
+    "id": "rsl-granular-hazard",
+    "title": "Recurring Slope Lineae (RSL): Dry Granular Flows",
+    "category": "hazards",
+    "summary": "Why RSL are NOT water resources: USGS and HiRISE 151-feature analysis proving granular dry flow physics at angles of repose >27°.",
+    "content": "Recurring Slope Lineae (RSL) are dark, narrow (0.5–5 m) streaks that appear on steep Martian slopes during warm seasons and fade in colder periods. While early hypotheses suggested liquid briny seeps, comprehensive analysis of 151 RSL across 10 regions by the USGS and NASA HiRISE team proved that RSL occur almost exclusively on slopes steeper than 27 degrees—matching the angle of repose for dry granular material.\n\nLiquid water flows would continue down onto lower gradient slopes (<20°), but RSL terminate abruptly where slope angles decrease below 27°. While hydrated perchlorate salts have been detected spectrally at some sites, they represent atmospheric hydration of surface minerals rather than substantial aquifers.\n\nOPERATIONAL DIRECTIVE: Never classify RSL as water resources. RSL are extreme slope hazards (>27°), slip-face terrain, and potential Planetary Protection Special Regions. Traverses across RSL slopes are prohibited.",
+    "tags": ["hazards", "rsl", "terrain", "geology"],
+    "checkpoints": ["valles-marineris-walls", "jezero-delta-front"],
+    "sources": [
+      { "title": "NASA/USGS Study: Recurring Martian Streaks Flow Downhill Like Sand", "url": "https://www.nasa.gov/press-release/mars-recurring-slope-lineae-san-diego" }
+    ],
+    "provenance": "NASA-DERIVED"
+  },
+  {
+    "id": "moxie-atmospheric-o2",
+    "title": "Atmospheric O₂ Extraction via MOXIE Solid Oxide Electrolysis",
+    "category": "atmosphere",
+    "summary": "Producing breathable oxygen and rocket oxidizer from the 95% CO₂ atmosphere everywhere on the Martian surface.",
+    "content": "Mars's atmosphere is 95.3% carbon dioxide with an ambient surface pressure of 6 to 10 millibars. Rather than hauling oxygen across interplanetary space, NASA's Mars Oxygen ISRU Experiment (MOXIE) on Perseverance demonstrated that breathable oxygen can be extracted reliably from ambient Martian air.\n\nMOXIE uses Solid Oxide Electrolysis Cells (SOEC) heated to 800 °C to split carbon dioxide molecules into oxygen ions and carbon monoxide:\n2 CO₂ → 2 CO + O₂\n\nAcross 16 operational runs in Jezero Crater, MOXIE generated a total of 122 grams of 98%+ purity oxygen across all seasons, day and night, proving that atmospheric O₂ is a universally available global resource across all Martian coordinates.",
+    "tags": ["atmosphere", "oxygen", "isru", "moxie", "perseverance"],
+    "checkpoints": ["jezero-perseverance"],
+    "sources": [
+      { "title": "NASA MOXIE Instrument on Perseverance", "url": "https://mars.nasa.gov/mars2020/spacecraft/instruments/moxie/" }
+    ],
+    "provenance": "MEASURED"
+  },
+  {
+    "id": "meda-thermal-regime",
+    "title": "Martian Diurnal Thermal Cycle & Human Protection",
+    "category": "survival",
+    "summary": "Engineering reality of the 88 K diurnal temperature swing recorded by MEDA and REMS, and spacesuit thermal envelope limits.",
+    "content": "Surface temperature telemetry from Perseverance's Mars Environmental Dynamics Analyzer (MEDA) in Jezero Crater reveals a dramatic 88 K (88 °C) diurnal swing: pre-dawn minimums drop to -83 °C (-117 °F), while peak afternoon ground temperatures can briefly reach +5 °C (+41 °F).\n\nThe low atmospheric density provides minimal thermal inertia, meaning radiative heat loss to the cold Martian sky is rapid after sunset. Human EVAs and unpressurized rover operations must account for extreme suit heat pump demands during pre-dawn hours and battery thermal insulation.\n\nEQUIPMENT LIMITS:\n- Pressurized Rover: -80 °C to +25 °C operating range.\n- EVA Spacesuit: -90 °C to +30 °C with active liquid cooling/heating garment.\n- Scientific drills: Lubricants freeze below -65 °C unless heated.",
+    "tags": ["temperature", "meda", "survival", "weather"],
+    "checkpoints": ["jezero-perseverance", "gale-bradbury-curiosity"],
+    "sources": [
+      { "title": "Perseverance MEDA Weather Instrument", "url": "https://mars.nasa.gov/mars2020/spacecraft/instruments/meda/" }
+    ],
+    "provenance": "MEASURED"
+  },
+  {
+    "id": "martian-meteorites-water",
+    "title": "Martian Meteorites & Ancient Crustal Water (Black Beauty)",
+    "category": "geology",
+    "summary": "Northwest Africa 7034 ('Black Beauty') and what basaltic breccias tell us about 4.4-billion-year-old crustal water.",
+    "content": "Meteorite Northwest Africa 7034 ('Black Beauty'), recovered on Earth, is a 2.1-billion-year-old polymict regolith breccia containing ancient 4.4-billion-year-old zircon grains from the primordial Martian crust.\n\nSpectroscopic and isotopic analysis revealed Black Beauty contains 10 to 30 times more water (up to 6,000 ppm) than other known Martian meteorites (Shergottites, Nakhlites, Chassignites). This water is bound directly within oxidized basaltic clasts and hydrous iron oxide matrices, proving that liquid water was active in the early crust before the global transition to hyper-arid conditions.\n\nOn the Martian surface, metal-rich meteorites such as 'Egg Rock' (discovered by Curiosity in Gale Crater) provide high-purity iron-nickel feedstock for metallurgy and construction.",
+    "tags": ["geology", "meteorites", "minerals", "curiosity"],
+    "checkpoints": ["egg-rock-meteorite", "gale-bradbury-curiosity", "meridiani-planum"],
+    "sources": [
+      { "title": "NASA Study of Martian Meteorite NWA 7034 'Black Beauty'", "url": "https://www.nasa.gov/mission_pages/mars/news/mars20130103.html" }
+    ],
+    "provenance": "MEASURED"
+  },
+  {
+    "id": "dust-storm-dynamics",
+    "title": "Global Dust Storm Dynamics & Solar Degradation",
+    "category": "survival",
+    "summary": "Dust optical depth (tau), solar array obscuration, electrostatic clinging, and survival protocols.",
+    "content": "Martian dust storms range from localized convective dust devils (frequently tracked by MEDA in Jezero) to planet-encircling global dust events (such as the 2018 storm that ended Opportunity's 14-year mission in Meridiani Planum).\n\nAtmospheric dust optical depth (&tau;) can surge from a clear-sky 0.3 to over 5.0 during major events, cutting solar panel power output by over 98%. Furthermore, the dry CO₂ environment promotes high electrostatic charges on fine dust particles (1–5 &mu;m), causing them to adhere tenaciously to rover radiators, optics, and spacesuit joint seals.\n\nSURVIVAL PROTOCOL:\n1. If &tau; > 1.5, suspend all long-distance exploratory EVAs immediately.\n2. Switch habitat to base nuclear/radioisotope (RTG/Fission Surface Power) power.\n3. Implement mechanical wiper/electrostatic dust shields on solar arrays.",
+    "tags": ["dust", "storm", "survival", "hazards"],
+    "checkpoints": ["meridiani-planum", "gusev-plains"],
+    "sources": [
+      { "title": "Opportunity Rover 2018 Global Dust Storm Final Log", "url": "https://mars.nasa.gov/news/8348/opportunity-hunkers-down-during-historic-dust-storm-on-mars/" }
+    ],
+    "provenance": "MEASURED"
+  }
+]

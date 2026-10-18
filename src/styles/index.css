@@ -1,11 +1,25 @@
+@import './tokens.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  html {
+    color-scheme: dark;
+  }
   body {
-    @apply bg-mars-darkest text-mars-text antialiased;
+    background-color: var(--bg-0);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Accessibility focus ring */
+  *:focus-visible {
+    outline: 2px solid var(--lantern-glow);
+    outline-offset: 2px;
   }
 }
 
@@ -13,6 +27,7 @@
 .leaflet-container {
   background-color: #0b0c10 !important;
   font-family: inherit;
+  isolation: isolate;
 }
 
 .ares-popup .leaflet-popup-content-wrapper {

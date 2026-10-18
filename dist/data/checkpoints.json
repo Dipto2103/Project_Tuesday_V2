@@ -1,0 +1,1180 @@
+[
+  {
+    "id": "mawrth-vallis",
+    "name": "Mawrth Vallis Layered Clays",
+    "kind": "science_site",
+    "lat": 24.7,
+    "lonE": 339.5,
+    "coordConfidence": "exact",
+    "coordSource": "project-pdf",
+    "resources": [
+      {
+        "type": "clay_minerals",
+        "detail": "Fe/Mg clays (nontronite) at stratigraphic base, overlain by Al-clays (kaolinite) and hydrated silica.",
+        "provenance": "MEASURED"
+      },
+      {
+        "type": "hydrated_minerals",
+        "detail": "Ferrous-iron bearing hydrated phases identified by CRISM orbital spectroscopy.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "surfaceFacts": [
+      {
+        "label": "Clay Stratigraphy",
+        "value": "Fe/Mg smectite base under Al-rich clays",
+        "provenance": "MEASURED"
+      },
+      {
+        "label": "Spectral Source",
+        "value": "CRISM Target Observation (21 Sep 2007)",
+        "provenance": "MEASURED"
+      }
+    ],
+    "summary": "Spectacular ancient outflow channel exposing one of the thickest sequences of phyllosilicate clays on Mars.",
+    "sources": [
+      {
+        "title": "CRISM Mawrth Vallis Mineralogical Mapping",
+        "url": "https://crism.jhuapl.edu"
+      },
+      {
+        "title": "NASA Planetary Data System Phyllosilicate Catalog",
+        "url": "https://pds-geosciences.wustl.edu"
+      }
+    ],
+    "fieldManualSlug": "mawrth-vallis-clays"
+  },
+  {
+    "id": "crism-crater-floor-wall",
+    "name": "CRISM Crater Floor & Wall Target",
+    "kind": "science_site",
+    "lat": -10.65,
+    "lonE": 98.22,
+    "coordConfidence": "exact",
+    "coordSource": "project-pdf",
+    "resources": [
+      {
+        "type": "clay_minerals",
+        "detail": "Iron-magnesium phyllosilicate clays exposed along crater wall terraces.",
+        "provenance": "MEASURED"
+      },
+      {
+        "type": "basaltic_regolith",
+        "detail": "Unaltered olivine-rich basaltic floor unit.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "summary": "Targeted CRISM spectrometer site resolving excavated deep-seated crustal smectites and olivine sandstones.",
+    "sources": [
+      {
+        "title": "CRISM Spectral Directory Target 10.65S 98.22E",
+        "url": "https://crism.jhuapl.edu"
+      }
+    ]
+  },
+  {
+    "id": "crism-escarpment-slope",
+    "name": "CRISM Escarpment Slope Target (Nili Fossae Margin)",
+    "kind": "science_site",
+    "lat": 22.06,
+    "lonE": 74.63,
+    "coordConfidence": "exact",
+    "coordSource": "project-pdf",
+    "resources": [
+      {
+        "type": "clay_minerals",
+        "detail": "Fe-Mg smectite clays and aluminum-rich clays along fault scarp.",
+        "provenance": "MEASURED"
+      },
+      {
+        "type": "volcanic",
+        "detail": "Crystalline olivine bedrock exposed by tectonic graben extension.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "summary": "Prominent fault scarp in the Nili Fossae / Syrtis Major transition zone exposing layered clays and unaltered olivine.",
+    "sources": [
+      {
+        "title": "CRISM Spectral Directory Target 22.06N 74.63E",
+        "url": "https://crism.jhuapl.edu"
+      }
+    ]
+  },
+  {
+    "id": "gusev-plains",
+    "name": "Gusev Crater Basaltic Plains (Adirondack Class)",
+    "kind": "landmark",
+    "lat": -14.57,
+    "lonE": 175.48,
+    "coordConfidence": "exact",
+    "coordSource": "project-pdf",
+    "resources": [
+      {
+        "type": "basaltic_regolith",
+        "detail": "Unaltered olivine basalt: plagioclase 39%, olivine 20%, low-Ca pyroxene 15%, augite 15%.",
+        "quantity": "Adirondack normative mineralogy",
+        "provenance": "MEASURED"
+      }
+    ],
+    "surfaceFacts": [
+      {
+        "label": "Plagioclase",
+        "value": "39",
+        "unit": "wt%",
+        "provenance": "MEASURED"
+      },
+      {
+        "label": "Olivine",
+        "value": "20",
+        "unit": "wt%",
+        "provenance": "MEASURED"
+      },
+      {
+        "label": "Pyroxene (Augite+Low-Ca)",
+        "value": "30",
+        "unit": "wt%",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Spirit",
+    "summary": "Spirit rover exploration plains proving the unaltered volcanic nature of Gusev Crater floor basalt lavas.",
+    "sources": [
+      {
+        "title": "NASA Mars Exploration Rover Spirit Mineralogy",
+        "url": "https://mars.nasa.gov/mer/"
+      }
+    ]
+  },
+  {
+    "id": "gusev-columbia-hills",
+    "name": "Columbia Hills Hydrothermal Alteration (Clovis & Paso Robles)",
+    "kind": "science_site",
+    "lat": -14.58,
+    "lonE": 175.52,
+    "coordConfidence": "approx",
+    "coordSource": "project-pdf",
+    "resources": [
+      {
+        "type": "iron_oxides",
+        "detail": "Goethite up to 40% of total iron in Clovis rock class (direct evidence of ancient liquid water).",
+        "provenance": "MEASURED"
+      },
+      {
+        "type": "sulfates",
+        "detail": "Ferric sulfate enriched soil (~65% of iron as Fe3+-sulfate) discovered in Paso Robles churned soil.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Spirit",
+    "summary": "Columbia Hills formations where Spirit discovered compelling mineral evidence of acidic hydrothermal spring activity.",
+    "sources": [
+      {
+        "title": "Spirit Rover Science Results: Columbia Hills",
+        "url": "https://mars.nasa.gov/mer/mission/science/results/"
+      }
+    ]
+  },
+  {
+    "id": "meridiani-planum",
+    "name": "Meridiani Planum Hematite Plains",
+    "kind": "resource_zone",
+    "lat": -1.95,
+    "lonE": 354.47,
+    "coordConfidence": "exact",
+    "coordSource": "project-pdf",
+    "radiusKm": 60,
+    "resources": [
+      {
+        "type": "iron_oxides",
+        "detail": "Gray crystalline hematite up to 20 wt% (orbital TES detection); millimeter-scale hematite spherules (\"blueberries\").",
+        "quantity": "~20 wt% bulk hematite",
+        "provenance": "MEASURED"
+      },
+      {
+        "type": "sulfates",
+        "detail": "Jarosite and calcium/magnesium sulfate hydrated salts cementing basaltic sandstone.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Opportunity",
+    "summary": "Opportunity rover landing plain demonstrating sustained groundwater percolation through jarosite and hematite spherules.",
+    "sources": [
+      {
+        "title": "Opportunity Mission Findings at Meridiani",
+        "url": "https://mars.nasa.gov/mer/"
+      }
+    ]
+  },
+  {
+    "id": "gale-rocknest",
+    "name": "Rocknest Eolian Bedform (Gale Crater)",
+    "kind": "science_site",
+    "lat": -4.6,
+    "lonE": 137.4,
+    "coordConfidence": "approx",
+    "coordSource": "project-pdf",
+    "resources": [
+      {
+        "type": "basaltic_regolith",
+        "detail": "Soil ~55 wt% crystalline basaltic (plagioclase 22.3%, olivine 12.3%, augite 8.0%, pigeonite 7.6%, magnetite 1.2%, anhydrite 0.8%).",
+        "provenance": "MEASURED"
+      },
+      {
+        "type": "hydrated_minerals",
+        "detail": "X-ray amorphous phase (~45 wt%) acting as principal host for volatile H2O, SO2, CO2, O2, and Cl.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Curiosity",
+    "summary": "Curiosity first scoop sample analysis site revealing the detailed volatile and mineral composition of global Martian drift dust.",
+    "sources": [
+      {
+        "title": "CheMin X-Ray Diffraction at Rocknest",
+        "url": "https://mars.nasa.gov/msl/"
+      }
+    ]
+  },
+  {
+    "id": "jezero-perseverance",
+    "name": "Octavia E. Butler Landing Site (Jezero Crater)",
+    "kind": "landing_site",
+    "lat": 18.4447,
+    "lonE": 77.4508,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "clay_minerals",
+        "detail": "River delta bottomset mudstones containing smectite clays preserving organic molecules.",
+        "provenance": "MEASURED"
+      },
+      {
+        "type": "co2_atmosphere",
+        "detail": "Feedstock processed by MOXIE instrument to produce breathable oxygen at ~6 g/hour rate.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Perseverance",
+    "summary": "Operational landing site of the Perseverance rover and Ingenuity helicopter in western Jezero Crater.",
+    "sources": [
+      {
+        "title": "NASA Mars 2020 Mission Landing Site",
+        "url": "https://mars.nasa.gov/mars2020/mission/science/landing-site/"
+      }
+    ]
+  },
+  {
+    "id": "gale-bradbury-curiosity",
+    "name": "Bradbury Landing (Gale Crater)",
+    "kind": "landing_site",
+    "lat": -4.5895,
+    "lonE": 137.4417,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "clay_minerals",
+        "detail": "Yellowknife Bay Sheepbed mudstone clay units formed in habitable ancient freshwater lake.",
+        "provenance": "MEASURED"
+      },
+      {
+        "type": "sulfates",
+        "detail": "Calcium sulfate mineral veins (gypsum/bassanite) cross-cutting fractured bedrock.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Curiosity",
+    "summary": "Curiosity rover touchdown site on the gravel-paved northern floor of Gale Crater near Mount Sharp.",
+    "sources": [
+      {
+        "title": "Curiosity Mission Overview",
+        "url": "https://mars.nasa.gov/msl/"
+      }
+    ]
+  },
+  {
+    "id": "eagle-crater-opportunity",
+    "name": "Eagle Crater Landing Site (Meridiani Planum)",
+    "kind": "landing_site",
+    "lat": -1.946,
+    "lonE": 354.473,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "iron_oxides",
+        "detail": "Gray hematite spherules eroding out of sulfate-rich outcrop layers.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Opportunity",
+    "summary": "First touchdown crater of Opportunity, discovering outcrop bedrock confirming ancient groundwater.",
+    "sources": [
+      {
+        "title": "NASA MER Opportunity Site",
+        "url": "https://mars.nasa.gov/mer/"
+      }
+    ]
+  },
+  {
+    "id": "gusev-spirit",
+    "name": "Columbia Memorial Station (Gusev Crater)",
+    "kind": "landing_site",
+    "lat": -14.5684,
+    "lonE": 175.4729,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "basaltic_regolith",
+        "detail": "Olivine basalt floor boulders with thin eolian dust coatings.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Spirit",
+    "summary": "Spirit rover touchdown station in southern Gusev Crater, dedicated to the crew of Space Shuttle Columbia.",
+    "sources": [
+      {
+        "title": "Spirit Landing Mission Archive",
+        "url": "https://mars.nasa.gov/mer/"
+      }
+    ]
+  },
+  {
+    "id": "viking-1-chryse",
+    "name": "Thomas Mutch Memorial Station (Viking 1 Lander)",
+    "kind": "landing_site",
+    "lat": 22.27,
+    "lonE": 312.05,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "basaltic_regolith",
+        "detail": "Iron-rich silicates and titanomagnetite in Chryse Planitia rocky regolith.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Viking",
+    "summary": "First operational soft landing on Mars (20 July 1976), confirming red iron oxide soils and atmospheric pressure.",
+    "sources": [
+      {
+        "title": "NASA Viking Mission Archive",
+        "url": "https://www.nasa.gov/viking/"
+      }
+    ]
+  },
+  {
+    "id": "viking-2-utopia",
+    "name": "Utopia Planitia Station (Viking 2 Lander)",
+    "kind": "landing_site",
+    "lat": 47.67,
+    "lonE": 134.28,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "water_ice",
+        "detail": "Observed thin seasonal water-ice frost coatings during Martian winter.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Viking",
+    "summary": "High-latitude northern plains landing site surrounded by polygonal frost fractures and angular boulders.",
+    "sources": [
+      {
+        "title": "NASA Viking 2 Overview",
+        "url": "https://www.nasa.gov/viking/"
+      }
+    ]
+  },
+  {
+    "id": "phoenix-green-valley",
+    "name": "Phoenix Green Valley (Northern Arctic Plains)",
+    "kind": "landing_site",
+    "lat": 68.22,
+    "lonE": 234.25,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "water_ice",
+        "detail": "Pure subsurface water ice directly excavated under lander thrusters and in \"Snow White\" trench (vaporized into TEGA).",
+        "provenance": "MEASURED"
+      },
+      {
+        "type": "carbonates",
+        "detail": "Calcium carbonate and alkaline soil chemistry detected by wet chemistry laboratory.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "surfaceFacts": [
+      {
+        "label": "Water Ice Purity",
+        "value": ">95% in exposed subsurface slab",
+        "provenance": "MEASURED"
+      },
+      {
+        "label": "Soil pH",
+        "value": "7.7 ± 0.5 (mildly alkaline)",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Phoenix",
+    "summary": "MEASURED ground-truth water-ice site. Phoenix confirmed massive pure water ice centimeters beneath arctic permafrost.",
+    "sources": [
+      {
+        "title": "NASA Phoenix Mars Lander Science Archive",
+        "url": "https://www.nasa.gov/mission_pages/phoenix/"
+      }
+    ]
+  },
+  {
+    "id": "insight-elysium",
+    "name": "InSight Elysium Planitia Seismic Outpost",
+    "kind": "landing_site",
+    "lat": 4.5024,
+    "lonE": 135.6234,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "basaltic_regolith",
+        "detail": "Homogeneous loose regolith optimal for thermal probe penetration and seismometer coupling.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "InSight",
+    "summary": "Geophysical observatory that recorded over 1,300 marsquakes, defining the crustal thickness and liquid metallic core of Mars.",
+    "sources": [
+      {
+        "title": "NASA InSight Mission Overview",
+        "url": "https://mars.nasa.gov/insight/"
+      }
+    ]
+  },
+  {
+    "id": "pathfinder-ares-vallis",
+    "name": "Carl Sagan Memorial Station (Mars Pathfinder & Sojourner)",
+    "kind": "landing_site",
+    "lat": 19.13,
+    "lonE": 326.78,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "volcanic",
+        "detail": "Silica-rich andesitic rocks (\"Barnacle Bill\") and volcanic basalts (\"Yogi\") in catastrophic flood deposits.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Pathfinder",
+    "summary": "Airbag-assisted landing site in ancient outflow channel Ares Vallis; deployed the first extraterrestrial rover Sojourner.",
+    "sources": [
+      {
+        "title": "NASA Mars Pathfinder Mission Page",
+        "url": "https://mars.nasa.gov/mars-exploration/missions/pathfinder/"
+      }
+    ]
+  },
+  {
+    "id": "swim-arcadia-planitia",
+    "name": "Arcadia Planitia Subsurface Ice Zone (SWIM)",
+    "kind": "resource_zone",
+    "lat": 39.3,
+    "lonE": 189.7,
+    "coordConfidence": "region",
+    "coordSource": "nasa-page",
+    "radiusKm": 180,
+    "resources": [
+      {
+        "type": "water_ice",
+        "detail": "Shallow subsurface water-ice sheets (within 1 to 2.5 m of surface) mapped by SWIM multi-dataset fusion (radar, thermal, neutron).",
+        "provenance": "NASA-DERIVED"
+      }
+    ],
+    "surfaceFacts": [
+      {
+        "label": "Ice Depth",
+        "value": "< 2 meters below regolith overburden",
+        "provenance": "NASA-DERIVED"
+      },
+      {
+        "label": "Ice Likelihood",
+        "value": "High (>80% SWIM consistency)",
+        "provenance": "NASA-DERIVED"
+      }
+    ],
+    "summary": "Prime In-Situ Resource Utilization (ISRU) water extraction target. Flat plains with shallow buried glacier-like sheets.",
+    "sources": [
+      {
+        "title": "Subsurface Water Ice Mapping (SWIM) Project",
+        "url": "https://swim.psi.edu"
+      },
+      {
+        "title": "NASA Ice Resource Maps",
+        "url": "https://www.nasa.gov"
+      }
+    ],
+    "fieldManualSlug": "arcadia-water-ice"
+  },
+  {
+    "id": "swim-acidalia-planitia",
+    "name": "Acidalia Planitia Subsurface Ice Zone (SWIM)",
+    "kind": "resource_zone",
+    "lat": 49.8,
+    "lonE": 338.5,
+    "coordConfidence": "region",
+    "coordSource": "nasa-page",
+    "radiusKm": 220,
+    "resources": [
+      {
+        "type": "water_ice",
+        "detail": "Subsurface permafrost and ground ice mapped by SHARAD radar dielectric permittivity reflections.",
+        "provenance": "NASA-DERIVED"
+      }
+    ],
+    "summary": "Extensive low-elevation northern basin holding radar-detected subsurface ice reserves beneath protective regolith.",
+    "sources": [
+      {
+        "title": "SWIM Acidalia Planitia Review",
+        "url": "https://swim.psi.edu"
+      }
+    ]
+  },
+  {
+    "id": "swim-deuteronilus-mensae",
+    "name": "Deuteronilus Mensae Debris-Covered Glaciers",
+    "kind": "resource_zone",
+    "lat": 43.9,
+    "lonE": 24.3,
+    "coordConfidence": "region",
+    "coordSource": "nasa-page",
+    "radiusKm": 140,
+    "resources": [
+      {
+        "type": "water_ice",
+        "detail": "Lobate Debris Aprons (LDAs) confirmed by SHARAD radar to be massive water-ice glaciers (>90% ice) under tens of meters of rock debris.",
+        "provenance": "NASA-DERIVED"
+      }
+    ],
+    "summary": "Freckled mesa terrain hosting extensive debris-covered glaciers preserved from Mars high-obliquity ice ages.",
+    "sources": [
+      {
+        "title": "SHARAD Radar Glaciology at Deuteronilus Mensae",
+        "url": "https://swim.psi.edu"
+      }
+    ]
+  },
+  {
+    "id": "swim-utopia-planitia",
+    "name": "Utopia Planitia Subsurface Ice Sheet",
+    "kind": "resource_zone",
+    "lat": 45,
+    "lonE": 110,
+    "coordConfidence": "region",
+    "coordSource": "nasa-page",
+    "radiusKm": 250,
+    "resources": [
+      {
+        "type": "water_ice",
+        "detail": "Enormous subsurface ice deposit estimated to hold volume of water equivalent to Lake Superior (SHARAD radar findings).",
+        "provenance": "NASA-DERIVED"
+      }
+    ],
+    "summary": "Vast northern impact basin concealing thick sheets of water ice underneath 1 to 10 meters of surface soil.",
+    "sources": [
+      {
+        "title": "NASA SHARAD Utopia Planitia Ice Discovery",
+        "url": "https://www.nasa.gov"
+      }
+    ]
+  },
+  {
+    "id": "north-polar-layered-deposits",
+    "name": "Planum Boreum (North Polar Layered Ice Deposits)",
+    "kind": "resource_zone",
+    "lat": 85,
+    "lonE": 0,
+    "coordConfidence": "region",
+    "coordSource": "nasa-page",
+    "radiusKm": 500,
+    "resources": [
+      {
+        "type": "water_ice",
+        "detail": "Massive continuous polar cap consisting of pure water ice layered with atmospheric dust (thickness up to 3 km).",
+        "provenance": "MEASURED"
+      }
+    ],
+    "summary": "The largest surface water reservoir on Mars, holding approximately 1.6 million cubic kilometers of water ice.",
+    "sources": [
+      {
+        "title": "NASA Planetary Photojournal North Polar Cap",
+        "url": "https://photojournal.jpl.nasa.gov"
+      }
+    ]
+  },
+  {
+    "id": "south-polar-layered-deposits",
+    "name": "Planum Australe (South Polar Residual Ice Cap)",
+    "kind": "resource_zone",
+    "lat": -85,
+    "lonE": 0,
+    "coordConfidence": "region",
+    "coordSource": "nasa-page",
+    "radiusKm": 450,
+    "resources": [
+      {
+        "type": "water_ice",
+        "detail": "Base water-ice layered deposits capped by an 8-meter perennial veneer of dry ice (solid carbon dioxide).",
+        "provenance": "MEASURED"
+      }
+    ],
+    "summary": "South polar ice sheet combining permanent water ice layers with active seasonal carbon dioxide dry-ice sublimation cycles.",
+    "sources": [
+      {
+        "title": "USGS Astrogeology Mars South Pole",
+        "url": "https://planetarymaps.usgs.gov"
+      }
+    ]
+  },
+  {
+    "id": "korolev-crater-ice",
+    "name": "Korolev Crater Permanent Water-Ice Dome",
+    "kind": "resource_zone",
+    "lat": 73,
+    "lonE": 165,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "radiusKm": 42,
+    "resources": [
+      {
+        "type": "water_ice",
+        "detail": "81-km-wide impact crater filled with a 1.8-km-thick permanent mound of water ice trapped by cold-trap atmospheric microclimate.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "summary": "Spectacular ice-filled crater near the north polar cap imaged extensively by ESA Mars Express High Resolution Stereo Camera.",
+    "sources": [
+      {
+        "title": "ESA Mars Express Korolev Crater Ice Mound",
+        "url": "https://www.esa.int"
+      }
+    ]
+  },
+  {
+    "id": "nili-fossae-carbonates",
+    "name": "Nili Fossae Carbonate & Serpentine Fractures",
+    "kind": "science_site",
+    "lat": 21,
+    "lonE": 78.5,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "carbonates",
+        "detail": "Magnesite (Mg-carbonate) deposits formed by low-temperature hydrothermal alteration of ultramafic olivine rocks.",
+        "provenance": "MEASURED"
+      },
+      {
+        "type": "hydrated_minerals",
+        "detail": "Serpentine mineral phases indicating serpentinization reactions capable of generating hydrogen and methane.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "summary": "Fractured graben system preserving carbonate and serpentine minerals critical for understanding ancient Martian habitability.",
+    "sources": [
+      {
+        "title": "CRISM Carbonate Discovery in Nili Fossae",
+        "url": "https://crism.jhuapl.edu"
+      }
+    ]
+  },
+  {
+    "id": "syrtis-major-volcanics",
+    "name": "Syrtis Major Planum Basaltic Shield",
+    "kind": "science_site",
+    "lat": 9.2,
+    "lonE": 67.1,
+    "coordConfidence": "region",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "volcanic",
+        "detail": "Unweathered tholeiitic basalt bedrock and dacite-bearing volcanic flows around Nili Patera caldera.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "summary": "Low-relief volcanic shield of Hesperian age displaying prominent dark wind streaks of unweathered pyroxene-rich sand.",
+    "sources": [
+      {
+        "title": "USGS Syrtis Major Geological Map",
+        "url": "https://planetarymaps.usgs.gov"
+      }
+    ]
+  },
+  {
+    "id": "jezero-delta-fan",
+    "name": "Jezero Crater Western Fan Delta Escarpment",
+    "kind": "science_site",
+    "lat": 18.444,
+    "lonE": 77.412,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "clay_minerals",
+        "detail": "Finely laminated bottomset mudstones enriched in smectites and detrital carbonates.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "summary": "Ancient river delta front in Jezero where ancient microbial biosignatures are actively cored and cached by Perseverance.",
+    "sources": [
+      {
+        "title": "Perseverance Delta Traverse Campaign",
+        "url": "https://mars.nasa.gov/mars2020/"
+      }
+    ]
+  },
+  {
+    "id": "comanche-outcrop",
+    "name": "Comanche Outcrop (Columbia Hills)",
+    "kind": "science_site",
+    "lat": -14.61,
+    "lonE": 175.52,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "carbonates",
+        "detail": "High concentration of magnesium-iron carbonate (16 to 34 wt%) discovered by Spirit Mossbauer and Mini-TES spectrometers.",
+        "quantity": "16–34 wt% carbonate",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Spirit",
+    "summary": "Definitive in-situ detection of substantial carbonate minerals, demonstrating near-neutral aqueous alteration on early Mars.",
+    "sources": [
+      {
+        "title": "JPL/NASA Comanche Outcrop Carbonate Study",
+        "url": "https://www.jpl.nasa.gov"
+      }
+    ]
+  },
+  {
+    "id": "egg-rock-meteorite",
+    "name": "Egg Rock Iron-Nickel Meteorite",
+    "kind": "landmark",
+    "lat": -4.67,
+    "lonE": 137.38,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "metals_meteorite",
+        "detail": "Deeply grooved iron-nickel meteorite composed of kamacite and taenite metal alloys, verified by ChemCam laser spectroscopy.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Curiosity",
+    "summary": "Golf-ball sized iron-nickel metallic meteorite discovered by Curiosity in Gale Crater, preserved with negligible oxidation.",
+    "sources": [
+      {
+        "title": "Curiosity ChemCam Laser Analysis of Egg Rock",
+        "url": "https://mars.nasa.gov/msl/"
+      }
+    ]
+  },
+  {
+    "id": "finger-cemented-rocks",
+    "name": "Finger-Like Cemented Diagenetic Concretions",
+    "kind": "science_site",
+    "lat": -4.65,
+    "lonE": 137.4,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "hydrated_minerals",
+        "detail": "Sulfate and silica cementation along ancient fracture networks eroded into delicate protruding fingers.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Curiosity",
+    "summary": "Curiosity Mastcam finding illustrating differential diagenetic cementation by groundwater fluids in ancient lake sediments.",
+    "sources": [
+      {
+        "title": "Curiosity Views Delicate Rock Fingers in Gale Crater",
+        "url": "https://mars.nasa.gov/msl/"
+      }
+    ]
+  },
+  {
+    "id": "curiosity-yellowknife-bay",
+    "name": "Yellowknife Bay (John Klein & Cumberland Sample Sites)",
+    "kind": "science_site",
+    "lat": -4.59,
+    "lonE": 137.44,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "clay_minerals",
+        "detail": "Saponite smectite clays drilled from Sheepbed mudstone; established ancient neutral pH fresh water lake.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "surfaceFacts": [
+      {
+        "label": "Surface Age (K-Ar)",
+        "value": "4.21 ± 0.35 Gyr",
+        "provenance": "MEASURED"
+      },
+      {
+        "label": "Cosmic Ray Exposure",
+        "value": "78 ± 30 Myr",
+        "provenance": "MEASURED"
+      }
+    ],
+    "rover": "Curiosity",
+    "summary": "Site of Curiosity first drilled rock powders, confirming habitability (C, H, N, O, P, S bio-essential elements present).",
+    "sources": [
+      {
+        "title": "Curiosity Habitability Findings at Yellowknife Bay",
+        "url": "https://mars.nasa.gov/msl/"
+      }
+    ]
+  },
+  {
+    "id": "olympus-mons-caldera",
+    "name": "Olympus Mons Summit Caldera Complex",
+    "kind": "landmark",
+    "lat": 18.65,
+    "lonE": 226.2,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "volcanic",
+        "detail": "Tholeiitic basalt lava flows and extensive uncollapsed lava tube systems.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "surfaceFacts": [
+      {
+        "label": "Summit Elevation",
+        "value": "21287",
+        "unit": "m",
+        "provenance": "MEASURED"
+      },
+      {
+        "label": "Atmospheric Pressure",
+        "value": "0.7",
+        "unit": "mbar (near-vacuum)",
+        "provenance": "MEASURED"
+      }
+    ],
+    "summary": "The tallest shield volcano in the solar system, crowned with six nested pit calderas spanning 80 km across.",
+    "sources": [
+      {
+        "title": "USGS MOLA Olympus Mons Topography",
+        "url": "https://planetarymaps.usgs.gov"
+      }
+    ]
+  },
+  {
+    "id": "hellas-planitia-basin",
+    "name": "Hellas Planitia Basin Floor",
+    "kind": "landmark",
+    "lat": -42.4,
+    "lonE": 70.5,
+    "coordConfidence": "region",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "co2_atmosphere",
+        "detail": "Highest atmospheric surface pressure on Mars (~12.4 mbar at -7,152 m datum depth), mitigating UV/radiation exposure.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "summary": "Deepest impact basin on Mars (over 7 km deep), occasionally thick enough to allow temporary liquid water stability under peak temperatures.",
+    "sources": [
+      {
+        "title": "NASA MOLA Hellas Basin Altimetry",
+        "url": "https://pds-geosciences.wustl.edu"
+      }
+    ]
+  },
+  {
+    "id": "valles-marineris-melas",
+    "name": "Melas Chasma (Valles Marineris Floor)",
+    "kind": "science_site",
+    "lat": -9.8,
+    "lonE": 283.6,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "resources": [
+      {
+        "type": "sulfates",
+        "detail": "Thick Light-Toned Deposits (LTDs) of kieserite and polyhydrated sulfates spanning canyon floor.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "summary": "Central and widest abyss of the Valles Marineris grand canyon system, plunging 9 km below adjacent plateau plains.",
+    "sources": [
+      {
+        "title": "CRISM Hydrated Sulfate Mapping in Melas Chasma",
+        "url": "https://crism.jhuapl.edu"
+      }
+    ]
+  },
+  {
+    "id": "hazard-jezero-delta-scarp",
+    "name": "Jezero Delta Front Escarpment",
+    "kind": "hazard",
+    "lat": 18.425,
+    "lonE": 77.415,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "radiusKm": 1.8,
+    "resources": [],
+    "hazards": [
+      {
+        "label": "Steep Escarpment & Rockfall",
+        "detail": "Steep 24.5° talus cliff with loose boulders and unstable slope faces separating delta from crater floor.",
+        "provenance": "NASA-DERIVED"
+      }
+    ],
+    "summary": "Steep erosional cliff and boulder-strewn talus slopes separating the delta fan top from the crater floor. Bypass via designated ramp.",
+    "sources": [
+      {
+        "title": "MRO HiRISE DTM Jezero Delta",
+        "url": "https://pds-geosciences.wustl.edu"
+      }
+    ]
+  },
+  {
+    "id": "hazard-kodiak-cliff",
+    "name": "Kodiak Butte Perimeter Precipice",
+    "kind": "hazard",
+    "lat": 18.397,
+    "lonE": 77.412,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "radiusKm": 0.9,
+    "resources": [],
+    "hazards": [
+      {
+        "label": "Sub-Vertical Mesa Cliff",
+        "detail": "Sub-vertical cliff face (slope 36.0°) around Kodiak remnant mesa. Severe fall hazard.",
+        "provenance": "NASA-DERIVED"
+      }
+    ],
+    "summary": "Strict exclusion zone. Keep EVA traverses at least 300 meters away from base to avoid catastrophic rockfall.",
+    "sources": [
+      {
+        "title": "Mastcam-Z Stereo Imagery of Kodiak Butte",
+        "url": "https://mars.nasa.gov/mars2020/"
+      }
+    ]
+  },
+  {
+    "id": "hazard-gale-bagnold-dunes",
+    "name": "Bagnold Dunes Field (Gale Crater)",
+    "kind": "hazard",
+    "lat": -4.85,
+    "lonE": 137.45,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "radiusKm": 4.5,
+    "resources": [
+      {
+        "type": "basaltic_regolith",
+        "detail": "Fine unbonded basaltic sand dunes with loose grain packing.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "hazards": [
+      {
+        "label": "Active Dune Mobility Trap",
+        "detail": "Barchan dunes with slip faces exceeding 30 degrees; extreme wheel entrapment and boot sinkage hazard.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "summary": "Active dark barchan dune field across the path to Mount Sharp. Traverse only at designated bedrock crossing points.",
+    "sources": [
+      {
+        "title": "MSL Navcam Bagnold Dunes Campaign",
+        "url": "https://mars.nasa.gov/msl/"
+      }
+    ]
+  },
+  {
+    "id": "hazard-olympus-basal-scarp",
+    "name": "Olympus Mons Basal Scarp Ring",
+    "kind": "hazard",
+    "lat": 18.2,
+    "lonE": 225.5,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "radiusKm": 25,
+    "resources": [],
+    "hazards": [
+      {
+        "label": "6-8 km Sheer Basal Scarp",
+        "detail": "Immense cliff ring surrounding the volcano base dropping 6 to 8 vertical kilometers on 45° slopes.",
+        "provenance": "NASA-DERIVED"
+      }
+    ],
+    "summary": "Completely impassable for ground travel. Aerial ascent or orbital transport mandatory.",
+    "sources": [
+      {
+        "title": "MOLA Global Relief Olympus Mons",
+        "url": "https://trek.nasa.gov"
+      }
+    ]
+  },
+  {
+    "id": "hazard-valles-marineris-walls",
+    "name": "Coprates Chasma Wall Precipices",
+    "kind": "hazard",
+    "lat": -13.5,
+    "lonE": 298.2,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "radiusKm": 20,
+    "resources": [],
+    "hazards": [
+      {
+        "label": "8 km Vertical Canyon Drop",
+        "detail": "Massive landslide scarps dropping 8,000 meters into canyon abyss on slopes exceeding 35 degrees.",
+        "provenance": "NASA-DERIVED"
+      }
+    ],
+    "summary": "Deepest chasma cliffs of Valles Marineris. Impassable for rover transit.",
+    "sources": [
+      {
+        "title": "USGS Valles Marineris Cartography",
+        "url": "https://planetarymaps.usgs.gov"
+      }
+    ]
+  },
+  {
+    "id": "hazard-rsl-palikir-crater",
+    "name": "Palikir Crater Recurring Slope Lineae (RSL)",
+    "kind": "hazard",
+    "lat": -41.6,
+    "lonE": 157.7,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "radiusKm": 5,
+    "resources": [],
+    "hazards": [
+      {
+        "label": "Steep Granular Avalanche Hazard (RSL)",
+        "detail": "NASA/HiRISE confirms RSL occur on slopes >27° matching dry angle of repose. Dry/granular sand cascades, NOT a water resource. Water status: CONTESTED.",
+        "provenance": "NASA-DERIVED"
+      }
+    ],
+    "summary": "SCIENTIFIC GUARDRAIL: Recurring slope lineae are dry granular flows on steep unstable crater walls. Never classify as water resources.",
+    "sources": [
+      {
+        "title": "NASA/USGS HiRISE RSL Granular Flow Findings",
+        "url": "https://www.nasa.gov"
+      },
+      {
+        "title": "MRO HiRISE Palikir Monitoring",
+        "url": "https://hirise.lpl.arizona.edu"
+      }
+    ]
+  },
+  {
+    "id": "hazard-rsl-hale-crater",
+    "name": "Hale Crater Central Peak RSL Complex",
+    "kind": "hazard",
+    "lat": -35.7,
+    "lonE": 323.5,
+    "coordConfidence": "exact",
+    "coordSource": "nasa-page",
+    "radiusKm": 8,
+    "resources": [],
+    "hazards": [
+      {
+        "label": "Steep Slump & Granular Cascades (RSL)",
+        "detail": "Dark narrow streaks on 28°–34° central peak slopes representing granular flows. Contested planetary science site; impassable terrain.",
+        "provenance": "NASA-DERIVED"
+      }
+    ],
+    "summary": "NASA HiRISE monitored site of active seasonal slope flows on steep terrain. Strictly treated as mobility hazard.",
+    "sources": [
+      {
+        "title": "HiRISE Investigation of Hale Crater Slope Features",
+        "url": "https://hirise.lpl.arizona.edu"
+      }
+    ]
+  },
+  {
+    "id": "hazard-dust-devil-alley",
+    "name": "Gusev Dust Devil High-Frequency Alley",
+    "kind": "hazard",
+    "lat": -14.65,
+    "lonE": 175.55,
+    "coordConfidence": "approx",
+    "coordSource": "nasa-page",
+    "radiusKm": 15,
+    "resources": [],
+    "hazards": [
+      {
+        "label": "Electrostatic Dust Whirlwinds",
+        "detail": "High concentration of active daytime convective vortices carrying abrasive electrostatic dust plumes.",
+        "provenance": "MEASURED"
+      }
+    ],
+    "summary": "Corridor characterized by numerous dust devils documented by Spirit rover, causing solar panel scrub/dusting and electrostatic hazards.",
+    "sources": [
+      {
+        "title": "Spirit Navcam Dust Devil Movie Archive",
+        "url": "https://mars.nasa.gov/mer/"
+      }
+    ]
+  },
+  {
+    "id": "co2-atmosphere-global",
+    "name": "Planetary Ambient Atmosphere (Oxygen Feedstock)",
+    "kind": "resource_zone",
+    "lat": 0,
+    "lonE": 0,
+    "coordConfidence": "region",
+    "coordSource": "nasa-page",
+    "radiusKm": 10000,
+    "resources": [
+      {
+        "type": "co2_atmosphere",
+        "detail": "Mars global atmosphere (95.32% CO2, 1.6% N2, 1.9% Ar). Feedstock for Solid Oxide Electrolysis (MOXIE) to generate O2 and CO.",
+        "quantity": "Atmospheric pressure 6–10 mbar globally",
+        "provenance": "MEASURED"
+      }
+    ],
+    "surfaceFacts": [
+      {
+        "label": "CO2 Concentration",
+        "value": "95.32",
+        "unit": "%",
+        "provenance": "MEASURED"
+      },
+      {
+        "label": "Mean Surface Pressure",
+        "value": "6.1",
+        "unit": "mbar",
+        "provenance": "MEASURED"
+      }
+    ],
+    "summary": "Global planetary atmosphere. Accessible everywhere on the Martian surface as an In-Situ Resource Utilization (ISRU) life support feedstock.",
+    "sources": [
+      {
+        "title": "Perseverance MOXIE Experiment Overview",
+        "url": "https://mars.nasa.gov/mars2020/technology/moxie/"
+      }
+    ]
+  }
+]

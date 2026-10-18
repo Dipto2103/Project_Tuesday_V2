@@ -13,6 +13,9 @@ import {
 } from '../data/roverTraverses';
 import type { ScienceObservation } from '../types/science';
 
+import { planMarsRoute } from '../core/route';
+import { normalizeLon360 } from '../core/geo';
+
 export function useRoutePlanner() {
   const [startCoord, setStartCoord] = useState<MarsCoordinate | null>({
     latitude: 18.4447,
@@ -42,43 +45,33 @@ export function useRoutePlanner() {
     setPlanningError(null);
 
     try {
-      // 1. Calculate primary route
-      const mainRoute = await planRouteUnified(
-        startCoord,
-        destCoord,
-        method,
+      // 1. Calculate primary route using planetary DEM A* engine
+      const primaryRes = planMarsRoute({
+        start: { lat: startCoord.latitude, lonE: normalizeLon360(startCoord.longitude) },
+        destination: { lat: destCoord.latitude, lonE: normalizeLon360(destCoord.longitude) },
+        maxSlopeDeg,
         walkingSpeedKmh,
-        maxSlopeDeg
-      );
+        mode: method === 'direct' ? 'direct' : 'shortest'
+      });
 
-      // 2. Calculate alternative comparison route (Direct vs Terrain-aware)
-      let altRoute: PlannedRoute | null = null;
-      if (method === 'terrain-aware' || method === 'historical-rover-reference') {
-        const directBase = planDirectMarsRoute(startCoord, destCoord, walkingSpeedKmh);
-        const refTraverse = startCoord.latitude < 0 ? CURIOSITY_TRAVERSE : PERSEVERANCE_TRAVERSE;
-        const prox = calculateDistanceToRoverTraverse(directBase.waypoints, refTraverse);
-        altRoute = {
-          ...directBase,
-          roverProximity: {
-            nearestRover: refTraverse.roverName,
-            minDistanceKm: prox.minDistanceKm,
-            closestSol: prox.closestRoverSol,
-            closestSite: prox.closestRoverSite
-          }
-        };
-      } else {
-        // Direct mode selected: calculate terrain-aware as alternative
-        altRoute = await planRouteUnified(
-          startCoord,
-          destCoord,
-          'terrain-aware',
-          walkingSpeedKmh,
-          maxSlopeDeg
+      if (!primaryRes.success || !primaryRes.route) {
+        throw new Error(
+          primaryRes.error ||
+            `No traversable route found under ${maxSlopeDeg}° slope limit between chosen locations.`
         );
       }
 
-      setPrimaryRoute(mainRoute);
-      setAlternativeRoute(altRoute);
+      // 2. Calculate alternative comparison route (safest vs direct)
+      const altRes = planMarsRoute({
+        start: { lat: startCoord.latitude, lonE: normalizeLon360(startCoord.longitude) },
+        destination: { lat: destCoord.latitude, lonE: normalizeLon360(destCoord.longitude) },
+        maxSlopeDeg,
+        walkingSpeedKmh,
+        mode: method === 'direct' ? 'shortest' : 'safest'
+      });
+
+      setPrimaryRoute(primaryRes.route);
+      setAlternativeRoute(altRes.route || null);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Unknown route calculation error';
       setPlanningError(msg);

@@ -1,0 +1,46 @@
+{
+  "name": "mars-lantern-data-manifest",
+  "version": "1.0.0",
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-17T20:30:00.000Z",
+  "challenge": "NASA Space Apps Challenge 2026 — Interplanetary Survival Guide: Martian Map",
+  "provenancePolicy": "MARS_LANTERN_SPEC.md §17 (Honesty & Provenance)",
+  "datasets": [
+    {
+      "path": "data/checkpoints.json",
+      "count": 42,
+      "format": "application/json",
+      "description": "Planetary landing sites, resource zones (SWIM ice), science targets, and hazards"
+    },
+    {
+      "path": "data/layers.json",
+      "count": 6,
+      "format": "application/json",
+      "description": "WMTS tile registry parsed from Trek GetCapabilities XML"
+    },
+    {
+      "path": "data/sources.json",
+      "count": 12,
+      "format": "application/json",
+      "description": "Authoritative NASA and USGS planetary sources and audit metadata"
+    },
+    {
+      "path": "data/stars.json",
+      "count": 75,
+      "format": "application/json",
+      "description": "Bright navigation stars for Martian sky dome mapping"
+    },
+    {
+      "path": "data/articles.json",
+      "count": 6,
+      "format": "application/json",
+      "description": "Field manual operational survival and planetary science articles"
+    },
+    {
+      "path": "data/dem/global_8ppd.bin.gz",
+      "sizeBytes": 1618218,
+      "format": "application/gzip",
+      "description": "Global MGS MOLA elevation grid at 8 px/deg (2880x1440, int16 meters)"
+    }
+  ]
+}

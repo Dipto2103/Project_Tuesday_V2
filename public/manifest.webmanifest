@@ -1,0 +1,20 @@
+{
+  "short_name": "MARS LANTERN",
+  "name": "MARS LANTERN — Martian Survival Atlas",
+  "icons": [
+    {
+      "src": "brand/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "brand/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "./",
+  "background_color": "#0B0D10",
+  "theme_color": "#0B0D10",
+  "display": "standalone"
+}

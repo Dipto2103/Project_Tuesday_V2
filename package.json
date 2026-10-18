@@ -1,5 +1,5 @@
 {
-  "name": "ares-martian-map",
+  "name": "mars-lantern",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -7,15 +7,23 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "build:layers": "tsx scripts/build-layer-registry.ts",
+    "build:checkpoints": "tsx scripts/build-checkpoint-catalog.ts",
+    "build:dem": "python scripts/build-dem.py"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "@radix-ui/react-dropdown-menu": "^2.2.1",
+    "framer-motion": "^14.3.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.453.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-leaflet": "^4.2.1",
-    "recharts": "^2.13.0"
+    "react-router-dom": "^7.18.4",
+    "recharts": "^2.13.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.12",
@@ -26,6 +34,7 @@
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
+    "tsx": "^4.23.15",
     "typescript": "^5.6.3",
     "vite": "^5.4.10",
     "vitest": "^2.1.3"

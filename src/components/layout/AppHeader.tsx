@@ -20,20 +20,35 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     <header className="h-14 border-b border-mars-border bg-mars-dark/95 backdrop-blur px-4 flex items-center justify-between z-20 shrink-0 select-none">
       {/* Branding */}
       <div className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-mars-rust to-mars-orange flex items-center justify-center shadow-lg shadow-mars-orange/20 border border-mars-orange/40">
-          <Compass className="w-5 h-5 text-white animate-[pulse_4s_infinite]" />
+        <div
+          className="w-10 h-10 rounded-[12px] flex items-center justify-center shadow-lg shadow-black/40 overflow-hidden shrink-0"
+          style={{ backgroundColor: '#FBF8F2' }}
+        >
+          <img
+            src={`${import.meta.env.BASE_URL}brand/icon-64.png`}
+            alt="MARS LANTERN Logo"
+            className="w-8 h-8 object-contain"
+          />
         </div>
         <div>
           <div className="flex items-center gap-2">
             <span className="font-mono font-bold tracking-wider text-base text-mars-text">
-              ARES <span className="text-mars-orange font-normal">//</span> MARTIAN MAP
+              MARS LANTERN
             </span>
-            <span className="hidden md:inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold bg-mars-orange/20 text-mars-orange border border-mars-orange/30">
+            <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold bg-mars-orange/20 text-mars-orange border border-mars-orange/30">
+              FIELD ATLAS
+            </span>
+            <span className="hidden md:inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-medium text-slate-400 bg-mars-surface border border-mars-border">
               NASA SPACE APPS 2026
             </span>
+            {typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('offline') === '1' && (
+              <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-950/90 text-amber-300 border border-amber-500/50 animate-pulse">
+                ⚡ OFFLINE MODE
+              </span>
+            )}
           </div>
-          <p className="text-[11px] text-mars-muted hidden sm:block">
-            Astronaut Route & Exploration System • Interplanetary Survival Guide
+          <p className="text-[11px] text-mars-muted hidden sm:block italic">
+            Carry the light. Read the planet.
           </p>
         </div>
       </div>

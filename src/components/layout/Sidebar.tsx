@@ -11,15 +11,25 @@ import {
   Layers,
   ChevronLeft,
   ChevronRight,
-  Footprints
+  Footprints,
+  Rocket,
+  Satellite,
+  Sun,
+  ShieldAlert,
+  BookOpen
 } from 'lucide-react';
 
 export type ActiveTab =
   | 'layers'
+  | 'satellite'
+  | 'sky'
   | 'route-plan'
+  | 'mission-builder'
   | 'route-compare'
   | 'mission-brief'
   | 'rover-explorer'
+  | 'survival'
+  | 'manual'
   | 'terrain'
   | 'hazards'
   | 'science'
@@ -61,15 +71,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const navSections: NavSection[] = [
     {
-      group: 'CARTOGRAPHY',
+      group: 'CARTOGRAPHY & SKY',
       items: [
-        { id: 'layers', label: 'Map Layers', icon: Layers, badge: 'NASA' }
+        { id: 'layers', label: 'Map Layers', icon: Layers, badge: 'NASA' },
+        { id: 'satellite', label: 'Satellite Views', icon: Satellite, badge: 'MOLA' },
+        { id: 'sky', label: 'Mars Sky Dome', icon: Sun, badge: 'MARS24' }
       ]
     },
     {
       group: 'MISSION PLANNING',
       items: [
         { id: 'route-plan', label: 'Route Planner', icon: Route },
+        { id: 'mission-builder', label: 'Mission Builder', icon: Rocket, badge: 'NEW' },
         { id: 'route-compare', label: 'Compare Routes', icon: GitCompare },
         {
           id: 'mission-brief',
@@ -86,8 +99,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
       ]
     },
     {
-      group: 'SURVIVAL & INTEL',
+      group: 'SURVIVAL & FIELD MANUAL',
       items: [
+        { id: 'survival', label: 'Survival Center', icon: ShieldAlert, badge: 'ECLSS' },
+        { id: 'manual', label: 'Field Manual', icon: BookOpen, badge: 'NASA' },
         { id: 'terrain', label: 'Terrain Analysis', icon: Mountain },
         {
           id: 'hazards',
@@ -103,7 +118,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           badgeCount: scienceCount,
           badgeColor: 'text-mars-cyan bg-sky-950/60'
         },
-        { id: 'environment', label: 'Environmental Telemetry', icon: CloudSun }
+        { id: 'environment', label: 'Weather Telemetry', icon: CloudSun }
       ]
     }
   ];
@@ -176,7 +191,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div className="p-2 border-t border-mars-border flex items-center justify-between">
         {!isCollapsed && (
           <div className="px-2 text-[10px] font-mono text-mars-muted">
-            EVA v2.6 • MARS DATUM
+            MARS LANTERN • v1.0
           </div>
         )}
         <button

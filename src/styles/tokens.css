@@ -1,0 +1,70 @@
+:root {
+  /* surfaces */
+  --bg-0: #0B0D10;            /* page */
+  --bg-1: #101114;            /* concept board base */
+  --bg-2: #15181D;            /* cards */
+  --bg-3: #1C2027;            /* raised / hover */
+  --glass: rgba(16, 17, 20, 0.72); /* panels over imagery, with backdrop-filter: blur(14px) */
+  --glass-card: rgba(21, 24, 29, 0.82);
+  --border: rgba(231, 225, 216, 0.10);
+  --border-strong: rgba(231, 225, 216, 0.20);
+
+  /* brand */
+  --mars-rust: #C65D38;       /* primary buttons, active tab fill */
+  --mars-orange: #FF7043;     /* hover, highlights, active underline */
+  --lantern-glow: #FFB070;    /* focus ring, active checkpoint halo */
+  --science-cyan: #56D9E8;    /* data / science / links */
+  --text: #E7E1D8;            /* primary text (sand white) */
+  --text-dim: #A0A0A0;        /* secondary */
+  --text-faint: #6B6F76;
+
+  /* status (never colour-only: always pair with icon + label) */
+  --ok: #4ADE80;
+  --warn: #F5B544;
+  --danger: #EF4444;
+  --unknown: #7A7F87;
+
+  /* provenance badge colours */
+  --prov-measured: #4ADE80;
+  --prov-nasa: #56D9E8;
+  --prov-modeled: #F5B544;
+  --prov-simulated: #B392F0;
+  --prov-unknown: #7A7F87;
+
+  /* shape & depth */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --shadow-1: 0 6px 24px rgba(0, 0, 0, 0.35);
+  --glow-orange: 0 0 0 1px rgba(255, 112, 67, 0.35), 0 0 24px rgba(255, 112, 67, 0.18);
+  --glow-cyan: 0 0 0 1px rgba(86, 217, 232, 0.35), 0 0 24px rgba(86, 217, 232, 0.18);
+
+  /* layout */
+  --topbar-h: 64px;
+  --sidebar-w: 64px;          /* icon rail, desktop */
+  --drawer-w: 380px;          /* right drawers */
+}
+
+/* Glass panel utility */
+.glass-panel {
+  background-color: var(--glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-1);
+}
+
+@supports not (backdrop-filter: blur(14px)) {
+  .glass-panel {
+    background-color: var(--bg-2);
+  }
+}
+
+.glow-orange {
+  box-shadow: var(--glow-orange);
+}
+
+.glow-cyan {
+  box-shadow: var(--glow-cyan);
+}

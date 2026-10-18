@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import type { MarsMapLayer } from '../types/map';
 import { MARS_LAYERS } from '../data/marsLayers';
 
@@ -23,20 +23,38 @@ export function useMarsLayers() {
     );
   }, []);
 
+  const setActiveBaseLayer = useCallback((layerId: string) => {
+    setLayers((prev) =>
+      prev.map((l) => {
+        if (l.category === 'base') {
+          return { ...l, active: l.id === layerId };
+        }
+        return l;
+      })
+    );
+  }, []);
+
   const setLayerOpacity = useCallback((layerId: string, opacity: number) => {
     setLayers((prev) =>
       prev.map((l) => (l.id === layerId ? { ...l, opacity: Math.max(0, Math.min(1, opacity)) } : l))
     );
   }, []);
 
-  const activeBaseLayer = layers.find((l) => l.category === 'base' && l.active) || layers[0];
-  const activeOverlays = layers.filter((l) => l.category !== 'base' && l.active);
+  const activeBaseLayer = useMemo(
+    () => layers.find((l) => l.category === 'base' && l.active) || layers[0],
+    [layers]
+  );
+  const activeOverlays = useMemo(
+    () => layers.filter((l) => l.category !== 'base' && l.active),
+    [layers]
+  );
 
   return {
     layers,
     activeBaseLayer,
     activeOverlays,
     toggleLayer,
+    setActiveBaseLayer,
     setLayerOpacity
   };
 }

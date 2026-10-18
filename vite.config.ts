@@ -7,13 +7,14 @@ import react from '@vitejs/plugin-react';
 // Replace 'The-martian-map' below with your exact repository name on GitHub.
 export default defineConfig({
   plugins: [react()],
-  base: '/Project_Mongol_Pathik_2/',   // GitHub Pages sub-path: https://Dipto2103.github.io/Project_Mongol_Pathik_2/
+  base: process.env.VITE_BASE ?? '/',
   server: {
     port: 3000,
     host: true
   },
   build: {
     outDir: 'dist',
-    sourcemap: false
+    sourcemap: false,
+    chunkSizeWarningLimit: 900
   }
 });

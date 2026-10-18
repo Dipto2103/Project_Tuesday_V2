@@ -1,0 +1,110 @@
+[
+  {
+    "id": "mars-trek-wmts",
+    "title": "NASA Mars Trek WMTS Planetary Cartography Service",
+    "url": "https://trek.nasa.gov/tiles/apidoc/trekAPI.html?body=mars",
+    "category": "cartography",
+    "critical": true,
+    "provenance": "NASA-DERIVED",
+    "notes": "Primary equirectangular tile service for Viking Color, MOLA Hillshade, and MOC Atlas mosaics."
+  },
+  {
+    "id": "nasa-open-api",
+    "title": "NASA Open APIs Portal",
+    "url": "https://api.nasa.gov/",
+    "category": "cartography",
+    "critical": true,
+    "provenance": "NASA-DERIVED",
+    "notes": "NASA centralized API gateway for Mars imagery, telemetry, and cartography."
+  },
+  {
+    "id": "swim-water-ice",
+    "title": "Subsurface Water Ice Mapping (SWIM) on Mars — Planetary Science Institute",
+    "url": "https://swim.psi.edu",
+    "category": "science",
+    "critical": true,
+    "provenance": "NASA-DERIVED",
+    "notes": "Multispectral radar, thermal, and neutron shallow water ice likelihood mapping in mid-latitudes."
+  },
+  {
+    "id": "phoenix-lander",
+    "title": "NASA Phoenix Mars Lander — In-Situ Water Ice Discovery",
+    "url": "https://science.nasa.gov/mission/phoenix/",
+    "category": "science",
+    "critical": true,
+    "provenance": "MEASURED",
+    "notes": "Direct physical exposure of pure subsurface water ice by robotic trenching at Green Valley (68.2°N)."
+  },
+  {
+    "id": "perseverance-meda",
+    "title": "NASA Mars 2020 Perseverance — MEDA Weather Station",
+    "url": "https://mars.nasa.gov/mars2020/spacecraft/instruments/meda/",
+    "category": "telemetry",
+    "critical": true,
+    "provenance": "MEASURED",
+    "notes": "Direct surface air and ground temperature measurements in Jezero Crater (-83°C pre-dawn to +5°C noon)."
+  },
+  {
+    "id": "perseverance-moxie",
+    "title": "NASA Mars 2020 Perseverance — MOXIE Atmospheric O2 Extraction",
+    "url": "https://mars.nasa.gov/mars2020/spacecraft/instruments/moxie/",
+    "category": "isru",
+    "critical": true,
+    "provenance": "MEASURED",
+    "notes": "Solid oxide electrolysis extracting 122g of breathable oxygen from ambient Martian CO2."
+  },
+  {
+    "id": "curiosity-places",
+    "title": "NASA PDS Geosciences Node — MSL Curiosity PLACES Traverse Dataset",
+    "url": "https://pds-geosciences.wustl.edu/missions/msl/",
+    "category": "traverse",
+    "critical": true,
+    "provenance": "MEASURED",
+    "notes": "Ground-truth rover positioning and drive logs in Gale Crater."
+  },
+  {
+    "id": "rsl-hirise-study",
+    "title": "USGS & NASA HiRISE Study: Recurring Slope Lineae as Dry Granular Sand Flows",
+    "url": "https://uahirise.org/releases/rsl/",
+    "category": "hazards",
+    "critical": true,
+    "provenance": "NASA-DERIVED",
+    "notes": "Analysis of 151 features proving RSL terminate at dry repose angles (>27°) and are not flowing liquid aquifers."
+  },
+  {
+    "id": "mars24-algorithm",
+    "title": "NASA GISS Mars24 Sunclock Time & Ephemeris Algorithm",
+    "url": "https://www.giss.nasa.gov/tools/mars24/help/algorithm.html",
+    "category": "ephemeris",
+    "critical": true,
+    "provenance": "NASA-DERIVED",
+    "notes": "Allison & McEwen (2000) areocentric solar longitude (Ls) and LTST diurnal calculation formulas."
+  },
+  {
+    "id": "nasa-eyes-mars",
+    "title": "NASA Eyes on the Solar System — Mars 3D",
+    "url": "https://eyes.nasa.gov/apps/solar-system/#/mars",
+    "category": "ephemeris",
+    "critical": false,
+    "provenance": "NASA-DERIVED",
+    "notes": "Real-time 3D planetary orbital context and spacecraft trajectory visualization."
+  },
+  {
+    "id": "nasa-image-library",
+    "title": "NASA Image and Video Library API",
+    "url": "https://images-api.nasa.gov/search?q=Mars&media_type=image",
+    "category": "imagery",
+    "critical": false,
+    "provenance": "NASA-DERIVED",
+    "notes": "Dynamic retrieval of archival imagery and scientific observations by location name."
+  },
+  {
+    "id": "hirise-operations",
+    "title": "HiRISE Planetary Camera Operations — University of Arizona",
+    "url": "https://hirise.lpl.arizona.edu/",
+    "category": "imagery",
+    "critical": false,
+    "provenance": "NASA-DERIVED",
+    "notes": "Sub-meter high-resolution orbital reconnaissance imagery of Mars surface features."
+  }
+]
