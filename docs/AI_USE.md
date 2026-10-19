@@ -246,12 +246,29 @@
 - **Unit Testing Suite (`tests/modeA.test.ts`):**
   - 6 new unit tests verifying exact haversine distance equivalence, mandatory warning injection, steep slope detection, no-data gap warnings, and Zod runtime schema round-trips (109/109 tests passing).
 
+### Phase R5: Mode B Terrain-Aware A*, Worker Protocol, and Determinism
+- **Terrain-Aware Planetary A* (`src/core/route/modeB.ts`):**
+  - Implemented 8-connected A* search over MOLA elevation surface using a custom zero-dependency `BinaryMinHeap` priority queue.
+  - Implemented admissible spherical haversine heuristic ($h = \text{distToGoal} \times w_d$).
+  - Implemented deterministic tie-breaking ($f + 10^{-6} \cdot \text{slope}$) ensuring 100% byte-for-byte reproducibility on identical inputs.
+  - Added radial spiral endpoint snapping (`snapToTraversable`) up to 25 km when start or target is on steep impassable scarps.
+  - Added line-of-sight path simplification that tests every intermediate segment against the cost raster to avoid shortcutting across cliffs.
+  - Implemented slope-derated traversal time calculation ($\text{speed}(s) = \text{flatSpeed} \times (1 - s / \text{limit})$).
+  - Injected non-dismissible mandatory warnings (463m MOLA resolution caveat, model estimate disclaimer, coarse global data notes, offset notifications).
+  - Implemented `planMultiModeB` to simultaneously evaluate **Shortest** ($w_s = w_r = w_h = 0.5$) and **Safest** ($w_s = 8.0, w_h = 9.0$) routes.
+- **Upgraded Worker Protocol (`src/workers/routeWorker.ts`):**
+  - Implemented Spec §9.5 message contract: `compute`, `cancel`, `progress` (phases: loading-dem, building-costs, search, smoothing), `result`, `error`.
+  - Maintained backward compatibility with existing `PLAN_ROUTE` calls.
+- **Unit Testing Suite (`tests/modeB.test.ts`):**
+  - 7 new unit tests verifying: feasible path generation, exact determinism on identical requests, search cancellation, start snapping on steep terrain, shortest vs safest slope prioritization, mandatory warning presence, and `NO_ROUTE` detection on impossibly low slope limits (116/116 tests passing).
+
 ---
 
 ## Verification Status
-- **Test Suite:** 19 vitest test suites, 109 passing unit tests (`npm test`).
+- **Test Suite:** 20 vitest test suites, 116 passing unit tests (`npm test`).
 - **Production Build:** Clean TypeScript compilation and Vite minification with zero errors (`npm run build`).
 - **Runtime Verification:** Local static preview served cleanly on port 4173 with complete route lazy loading.
+
 
 
 

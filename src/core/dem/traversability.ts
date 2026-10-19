@@ -46,11 +46,12 @@ export function classifyTerrainCell(
     isInHazardPolygon?: boolean;
     hasRslNearby?: boolean;
     hazardSeverity?: number; // 0 to 1
+    slopeLimitDeg?: number;
   }
 ): TraversabilityAssessment {
-  const slopeLimitDeg = getVehicleSlopeLimitDeg(vehicle);
-  const cautionMinDeg = getVehicleCautionMinDeg(vehicle);
-  const cautionBandWidth = slopeLimitDeg - cautionMinDeg;
+  const slopeLimitDeg = options?.slopeLimitDeg ?? getVehicleSlopeLimitDeg(vehicle);
+  const cautionMinDeg = Math.min(slopeLimitDeg * 0.7, getVehicleCautionMinDeg(vehicle));
+  const cautionBandWidth = Math.max(0.1, slopeLimitDeg - cautionMinDeg);
   const highRiskMinSlope = cautionMinDeg + (2 / 3) * cautionBandWidth;
 
   const isInHazard = options?.isInHazardPolygon ?? false;
@@ -179,11 +180,13 @@ export function calculateCellBaseCost(
     isRegional?: boolean;
     riskTolerant?: boolean;
     isInHazard?: boolean;
+    slopeLimitDeg?: number;
   }
 ): number {
   const assessment = classifyTerrainCell(cell, vehicle, {
     isInHazardPolygon: options?.isInHazard ?? false,
-    hazardSeverity: options?.hazardSeverity ?? 0
+    hazardSeverity: options?.hazardSeverity ?? 0,
+    slopeLimitDeg: options?.slopeLimitDeg
   });
 
   // Strict data-gap handling
