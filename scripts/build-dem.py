@@ -127,8 +127,64 @@ def build_global_grid():
     print(f"Saved header: {header_path} (Range: {header['minElevationM']}m to {header['maxElevationM']}m)")
     print(f"Output file size: {bin_gz_path.stat().st_size / (1024 * 1024):.2f} MB")
 
+def compute_derived_rasters(elev_grid, lats, dlat_deg, dlon_deg, nodata=-32768):
+    """Computes Horn slope (0-90°), roughness (0-510m / 2), and mask (bits 0,1,2)."""
+    h, w = elev_grid.shape
+    rad = np.pi / 180.0
+    clamped_lats = np.clip(lats, -89.0, 89.0)
+    dy = 3389500.0 * (dlat_deg * rad)
+    dx = 3389500.0 * np.cos(clamped_lats * rad)[:, None] * (dlon_deg * rad)
+
+    slope_u8 = np.full((h, w), 255, dtype=np.uint8)
+    rough_u8 = np.full((h, w), 255, dtype=np.uint8)
+    mask_u8 = np.zeros((h, w), dtype=np.uint8)
+
+    valid = (elev_grid != nodata) & np.isfinite(elev_grid)
+    mask_u8[valid] |= 0x01
+    polar = np.abs(lats) > 85.0
+    mask_u8[polar[:, None], :] |= 0x02
+
+    # 3x3 window on interior
+    a = elev_grid[:-2, :-2]
+    b = elev_grid[:-2, 1:-1]
+    c = elev_grid[:-2, 2:]
+    d = elev_grid[1:-1, :-2]
+    e = elev_grid[1:-1, 1:-1]
+    f = elev_grid[1:-1, 2:]
+    g = elev_grid[2:, :-2]
+    h_c = elev_grid[2:, 1:-1]
+    i = elev_grid[2:, 2:]
+
+    valid_9 = (
+        valid[:-2, :-2] & valid[:-2, 1:-1] & valid[:-2, 2:] &
+        valid[1:-1, :-2] & valid[1:-1, 1:-1] & valid[1:-1, 2:] &
+        valid[2:, :-2] & valid[2:, 1:-1] & valid[2:, 2:]
+    )
+
+    sub_dx = dx[1:-1, 1:-1]
+    dz_dx = ((c + 2 * f + i) - (a + 2 * d + g)) / (8.0 * sub_dx)
+    dz_dy = ((g + 2 * h_c + i) - (a + 2 * b + c)) / (8.0 * dy)
+
+    grad = np.sqrt(dz_dx**2 + dz_dy**2)
+    slope_deg = np.degrees(np.arctan(grad))
+
+    sub_slope = slope_u8[1:-1, 1:-1]
+    sub_slope[valid_9] = np.clip(np.round(slope_deg[valid_9]), 0, 90).astype(np.uint8)
+
+    mean_3x3 = (a + b + c + d + e + f + g + h_c + i) / 9.0
+    var_3x3 = (
+        (a - mean_3x3)**2 + (b - mean_3x3)**2 + (c - mean_3x3)**2 +
+        (d - mean_3x3)**2 + (e - mean_3x3)**2 + (f - mean_3x3)**2 +
+        (g - mean_3x3)**2 + (h_c - mean_3x3)**2 + (i - mean_3x3)**2
+    ) / 9.0
+    rough_m = np.sqrt(var_3x3)
+    sub_rough = rough_u8[1:-1, 1:-1]
+    sub_rough[valid_9] = np.clip(np.round(rough_m[valid_9] / 2.0), 0, 254).astype(np.uint8)
+
+    return slope_u8, rough_u8, mask_u8
+
 def build_regional_windows():
-    """Builds regional 2°x2° windows at 128 ppd (256x256 int16) for primary checkpoints."""
+    """Builds regional 2°x2° windows at 128 ppd (256x256 int16) with derived rasters for primary checkpoints."""
     checkpoints_path = PUBLIC_DIR / "data" / "checkpoints.json"
     if not checkpoints_path.exists():
         print(f"No checkpoints.json found at {checkpoints_path}, skipping regional windows.")
@@ -147,6 +203,7 @@ def build_regional_windows():
         win_size = 256
         ppd = 128
         deg_span = win_size / ppd  # 2.0 degrees
+        d_deg = 1.0 / ppd
 
         lats = np.linspace(c_lat + deg_span / 2, c_lat - deg_span / 2, win_size)
         lons = np.linspace(c_lon - deg_span / 2, c_lon + deg_span / 2, win_size)
@@ -162,11 +219,21 @@ def build_regional_windows():
         out_bin = REGIONS_DIR / f"{cp_id}.bin"
         with open(out_bin, "wb") as f:
             f.write(window_int16.tobytes())
+
+        # Generate and save derived rasters (slope, roughness, mask)
+        slope_u8, rough_u8, mask_u8 = compute_derived_rasters(window_int16, lats, d_deg, d_deg)
+        derived_path = REGIONS_DIR / f"{cp_id}_derived.bin"
+        with open(derived_path, "wb") as f:
+            f.write(slope_u8.tobytes())
+            f.write(rough_u8.tobytes())
+            f.write(mask_u8.tobytes())
+
         count += 1
 
-    print(f"Saved {count} regional DEM windows in {REGIONS_DIR}")
+    print(f"Saved {count} regional DEM windows and derived rasters in {REGIONS_DIR}")
 
 if __name__ == "__main__":
     build_global_grid()
     build_regional_windows()
     print("DEM build complete!")
+

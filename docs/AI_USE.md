@@ -198,11 +198,27 @@
   - Added tests for bearings with 0°/360° wraps (e.g. $355^\circ\text{E} \to 5^\circ\text{E}$ is due East $90^\circ$).
   - Added tests for `destinationPoint`, great-circle slerp interpolation, antimeridian splitting, right-angle cross-track distance, and pole singularities (87/87 tests passing).
 
+### Phase R2: DEM Engine, Horn Slope, Detrended Roughness, and Derived Rasters
+- **Terrain Analysis Engine (`src/core/dem/terrainAnalysis.ts`):**
+  - Implemented Horn's method ($3\times 3$ window with $1-2-1$ convolution weighting) for topographic slope and aspect.
+  - Implemented latitude-aware metric cell scaling ($\Delta x = R \cos\phi \Delta\lambda_{\text{rad}}$ clamped at $|\phi| \le 89^\circ$ to prevent polar singularities).
+  - Implemented strict nodata rule: if any of the 9 cells in the $3\times 3$ kernel contains nodata, slope is null and `hasData: false`.
+  - Implemented $5\times 5$ planar detrending for surface roughness: fits a least-squares plane $z(u, v) = c_0 + c_x u + c_y v$ and computes the standard deviation of residuals ($\sigma_{\text{detrended}} \to 0$ on smooth ramps).
+  - Added `computeDerivedRasters` to generate `slopeU8` (0–90°, 255 = nodata), `roughU8` (0–255 mapped to 0–510 m), and `maskU8` (bits 0: valid, 1: polar distortion).
+- **DEM Tile Store (`src/core/dem/demStore.ts`):**
+  - Created `DemStore` multi-resolution tile cache with injectable loaders.
+  - Implemented strict bilinear interpolation: returns interpolated height only when all 4 surrounding corner grid cells are valid (null if any corner is nodata).
+- **ETL Derived Raster Generation (`scripts/build-dem.py`):**
+  - Extended regional tile generation in Python to emit `_derived.bin` containing `slope_u8`, `rough_u8`, and `mask_u8` bytes alongside raw int16 tiles.
+- **Unit Testing Suite (`tests/terrainAnalysis.test.ts`):**
+  - 8 new unit tests covering: flat plane ($0^\circ$), 20m/100m ramp ($11.31^\circ \pm 0.05^\circ$), aspect directions (E/W/N/S), single-cell nodata propagation across all 8 neighbors, $\cos(60^\circ) = 0.5$ metric scaling ratio, detrended roughness on smooth ramp ($\to 0$), and DemStore strict bilinear sampling (95/95 tests passing).
+
 ---
 
 ## Verification Status
-- **Test Suite:** 16 vitest test suites, 87 passing unit tests (`npm test`).
+- **Test Suite:** 17 vitest test suites, 95 passing unit tests (`npm test`).
 - **Production Build:** Clean TypeScript compilation and Vite minification with zero errors (`npm run build`).
 - **Runtime Verification:** Local static preview served cleanly on port 4173 with complete route lazy loading.
+
 
 
