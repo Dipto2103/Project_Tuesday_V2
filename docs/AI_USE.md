@@ -213,12 +213,31 @@
 - **Unit Testing Suite (`tests/terrainAnalysis.test.ts`):**
   - 8 new unit tests covering: flat plane ($0^\circ$), 20m/100m ramp ($11.31^\circ \pm 0.05^\circ$), aspect directions (E/W/N/S), single-cell nodata propagation across all 8 neighbors, $\cos(60^\circ) = 0.5$ metric scaling ratio, detrended roughness on smooth ramp ($\to 0$), and DemStore strict bilinear sampling (95/95 tests passing).
 
+### Phase R3: Traversability Classes, Vehicle Limits, Data-Gap Policy & Settings Display
+- **Traversability Engine (`src/core/dem/traversability.ts`):**
+  - Implemented 5 traversability classes per Spec §7.3: `FAVOURABLE`, `CAUTION`, `HIGH_RISK`, `NON_TRAVERSABLE`, `UNKNOWN`.
+  - Enforced strict vehicle mobility limits (EVA: 15° max, unpressurized rover: 20°, pressurized rover: 15°).
+  - Enforced scientific guardrails: RSL steep terrain (> 27°) is permanently non-traversable for all vehicles; UNKNOWN data gaps are impassable by default ($\text{cost} = \infty$).
+  - Implemented risk-tolerant crossing policy: unknown cells crossable at $w_u \cdot \text{GAP\_COST}$ ($8\times$ baseline favourable cost) with mandatory low confidence flags.
+  - Implemented `calculateCellBaseCost` and `buildCostRaster` evaluating quadratic slope penalty $(s / \text{limit})^2$, roughness penalty, hazard penalties, and data uncertainty.
+- **Assumptions & Settings Configuration (`src/config/assumptions.ts`):**
+  - Aligned vehicle slope limits and added caution band minimums.
+  - Added routing cost weights ($w_d = 1.0, w_s = 4.0, w_r = 1.5, w_h = 6.0, w_u = 2.0$) and gap multiplier.
+  - Implemented `updateAssumptionValue` and `resetAssumptionsToDefaults` state functions.
+- **Settings & Assumptions UI (`src/components/common/SettingsModal.tsx`, `TopBar.tsx`):**
+  - Created accessible `SettingsModal` displaying all mission constants categorized with `SIMULATED ASSUMPTION` provenance badges.
+  - Supported inline editing of numeric values with validation and one-click "Reset to defaults".
+  - Added header quick-access Settings icon button in `TopBar.tsx`.
+- **Unit Testing Suite (`tests/traversability.test.ts`):**
+  - 8 new unit tests covering: boundary test at exactly the vehicle slope limit, strict UNKNOWN impassability and risk-tolerant override, RSL > 27° blocking, caution band top 1/3 bracket, roughness thresholds (150m vs 300m), quadratic cost raster calculations, and assumption updates/resets (103/103 tests passing).
+
 ---
 
 ## Verification Status
-- **Test Suite:** 17 vitest test suites, 95 passing unit tests (`npm test`).
+- **Test Suite:** 18 vitest test suites, 103 passing unit tests (`npm test`).
 - **Production Build:** Clean TypeScript compilation and Vite minification with zero errors (`npm run build`).
 - **Runtime Verification:** Local static preview served cleanly on port 4173 with complete route lazy loading.
+
 
 
 

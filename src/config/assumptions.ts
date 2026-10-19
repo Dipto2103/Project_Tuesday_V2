@@ -127,11 +127,96 @@ export const MISSION_ASSUMPTIONS: Record<string, AssumptionConstant> = {
   slope_limit_pressurised_deg: {
     id: 'slope_limit_pressurised_deg',
     label: 'Pressurized Rover Slope Limit',
-    value: 25.0,
+    value: 15.0,
     unit: 'deg',
     category: 'mobility',
     source: 'SIMULATED ASSUMPTION',
-    description: 'Chassis rollover and suspension threshold on steep crater walls.'
+    description: 'Chassis stability and traction threshold on slopes (Spec §7.3).'
+  },
+
+  // --- Vehicle Caution Bands (Spec §7.3) ---
+  slope_caution_min_eva_deg: {
+    id: 'slope_caution_min_eva_deg',
+    label: 'EVA Slope Caution Band Min',
+    value: 10.0,
+    unit: 'deg',
+    category: 'mobility',
+    source: 'SIMULATED ASSUMPTION',
+    description: 'Lower boundary of caution zone for suited astronauts (10°–15°).'
+  },
+  slope_caution_min_unpressurised_deg: {
+    id: 'slope_caution_min_unpressurised_deg',
+    label: 'Unpressurized Rover Caution Band Min',
+    value: 12.0,
+    unit: 'deg',
+    category: 'mobility',
+    source: 'SIMULATED ASSUMPTION',
+    description: 'Lower boundary of caution zone for unpressurized rovers (12°–20°).'
+  },
+  slope_caution_min_pressurised_deg: {
+    id: 'slope_caution_min_pressurised_deg',
+    label: 'Pressurized Rover Caution Band Min',
+    value: 10.0,
+    unit: 'deg',
+    category: 'mobility',
+    source: 'SIMULATED ASSUMPTION',
+    description: 'Lower boundary of caution zone for pressurized rovers (10°–15°).'
+  },
+
+  // --- Routing Cost Weights (Spec §7.5) ---
+  weight_cost_distance: {
+    id: 'weight_cost_distance',
+    label: 'Routing Cost Distance Weight (wd)',
+    value: 1.0,
+    unit: 'weight',
+    category: 'terrain',
+    source: 'SIMULATED ASSUMPTION',
+    description: 'Base path length weight in A* cost function.'
+  },
+  weight_cost_slope: {
+    id: 'weight_cost_slope',
+    label: 'Routing Cost Slope Penalty Weight (ws)',
+    value: 4.0,
+    unit: 'weight',
+    category: 'terrain',
+    source: 'SIMULATED ASSUMPTION',
+    description: 'Nonlinear quadratic slope penalty weight in A* cost raster.'
+  },
+  weight_cost_roughness: {
+    id: 'weight_cost_roughness',
+    label: 'Routing Cost Roughness Weight (wr)',
+    value: 1.5,
+    unit: 'weight',
+    category: 'terrain',
+    source: 'SIMULATED ASSUMPTION',
+    description: 'Surface roughness penalty weight in A* cost raster.'
+  },
+  weight_cost_hazard: {
+    id: 'weight_cost_hazard',
+    label: 'Routing Cost Hazard Penalty Weight (wh)',
+    value: 6.0,
+    unit: 'weight',
+    category: 'terrain',
+    source: 'SIMULATED ASSUMPTION',
+    description: 'Penalty weight for cells intersecting or near mapped hazard polygons.'
+  },
+  weight_cost_uncertainty: {
+    id: 'weight_cost_uncertainty',
+    label: 'Routing Cost Uncertainty Weight (wu)',
+    value: 2.0,
+    unit: 'weight',
+    category: 'terrain',
+    source: 'SIMULATED ASSUMPTION',
+    description: 'Uncertainty penalty weight (coarse vs regional data).'
+  },
+  gap_cost_multiplier: {
+    id: 'gap_cost_multiplier',
+    label: 'Risk-Tolerant Data Gap Multiplier',
+    value: 8.0,
+    unit: 'multiplier',
+    category: 'terrain',
+    source: 'SIMULATED ASSUMPTION',
+    description: 'Multiplier applied to unknown cells when risk-tolerant mode is enabled (8x favourable).'
   },
 
   // --- Terrain Scoring Weights (Spec §8.5) ---
@@ -184,6 +269,29 @@ export const MISSION_ASSUMPTIONS: Record<string, AssumptionConstant> = {
   }
 };
 
+// Snapshot of initial default values for reset
+const DEFAULT_ASSUMPTION_VALUES = Object.fromEntries(
+  Object.entries(MISSION_ASSUMPTIONS).map(([k, v]) => [k, v.value])
+);
+
+export interface RoutingCostWeights {
+  weight_cost_distance: number;
+  weight_cost_slope: number;
+  weight_cost_roughness: number;
+  weight_cost_hazard: number;
+  weight_cost_uncertainty: number;
+  gap_cost_multiplier: number;
+}
+
+export const DEFAULT_ROUTING_COST_WEIGHTS: RoutingCostWeights = {
+  weight_cost_distance: 1.0,
+  weight_cost_slope: 4.0,
+  weight_cost_roughness: 1.5,
+  weight_cost_hazard: 6.0,
+  weight_cost_uncertainty: 2.0,
+  gap_cost_multiplier: 8.0
+};
+
 /**
  * Returns speed in km/h for a given vehicle type.
  */
@@ -212,6 +320,59 @@ export function getVehicleSlopeLimitDeg(vehicle: 'eva' | 'rover_unpressurised' |
     case 'rover_pressurised':
       return MISSION_ASSUMPTIONS.slope_limit_pressurised_deg.value;
     default:
-      return 20.0;
+      return 15.0;
   }
 }
+
+/**
+ * Returns lower bound of caution slope band in degrees for a given vehicle type.
+ */
+export function getVehicleCautionMinDeg(vehicle: 'eva' | 'rover_unpressurised' | 'rover_pressurised'): number {
+  switch (vehicle) {
+    case 'eva':
+      return MISSION_ASSUMPTIONS.slope_caution_min_eva_deg.value;
+    case 'rover_unpressurised':
+      return MISSION_ASSUMPTIONS.slope_caution_min_unpressurised_deg.value;
+    case 'rover_pressurised':
+      return MISSION_ASSUMPTIONS.slope_caution_min_pressurised_deg.value;
+    default:
+      return 10.0;
+  }
+}
+
+/**
+ * Returns active routing cost weights.
+ */
+export function getRoutingCostWeights(): RoutingCostWeights {
+  return {
+    weight_cost_distance: MISSION_ASSUMPTIONS.weight_cost_distance.value,
+    weight_cost_slope: MISSION_ASSUMPTIONS.weight_cost_slope.value,
+    weight_cost_roughness: MISSION_ASSUMPTIONS.weight_cost_roughness.value,
+    weight_cost_hazard: MISSION_ASSUMPTIONS.weight_cost_hazard.value,
+    weight_cost_uncertainty: MISSION_ASSUMPTIONS.weight_cost_uncertainty.value,
+    gap_cost_multiplier: MISSION_ASSUMPTIONS.gap_cost_multiplier.value
+  };
+}
+
+/**
+ * Updates an assumption value in memory.
+ */
+export function updateAssumptionValue(id: string, newValue: number): boolean {
+  if (id in MISSION_ASSUMPTIONS && Number.isFinite(newValue)) {
+    MISSION_ASSUMPTIONS[id].value = newValue;
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Resets all assumptions back to their documented defaults.
+ */
+export function resetAssumptionsToDefaults(): void {
+  for (const [id, defaultVal] of Object.entries(DEFAULT_ASSUMPTION_VALUES)) {
+    if (id in MISSION_ASSUMPTIONS) {
+      MISSION_ASSUMPTIONS[id].value = defaultVal;
+    }
+  }
+}
+

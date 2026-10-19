@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Search, Menu } from 'lucide-react';
+import { Search, Menu, Sliders } from 'lucide-react';
 import { NAV } from './navConfig';
 import { NavDropdown } from './NavDropdown';
 import { MissionClockChip } from './MissionClockChip';
 import { MobileMenu } from './MobileMenu';
+import { SettingsModal } from '../common/SettingsModal';
 
 interface TopBarProps {
   onOpenSearch?: () => void;
@@ -17,6 +18,7 @@ export const TopBar: React.FC<TopBarProps> = ({ onOpenSearch, className = '' }) 
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   // Detect scroll > 8px
   useEffect(() => {
@@ -100,6 +102,17 @@ export const TopBar: React.FC<TopBarProps> = ({ onOpenSearch, className = '' }) 
           <div className="flex items-center gap-2.5 sm:gap-4">
             <MissionClockChip />
 
+            {/* Settings Trigger */}
+            <button
+              type="button"
+              onClick={() => setIsSettingsOpen(true)}
+              className="p-2.5 rounded-xl bg-[#15181D]/80 hover:bg-[#1C2027] border border-[rgba(231,225,216,0.10)] text-[#A0A0A0] hover:text-[#FF7043] transition-all cursor-pointer"
+              aria-label="Simulation Assumptions & Settings"
+              title="Simulation Assumptions & Constants"
+            >
+              <Sliders className="w-4 h-4" />
+            </button>
+
             {/* Search Trigger */}
             {onOpenSearch && (
               <button
@@ -130,6 +143,12 @@ export const TopBar: React.FC<TopBarProps> = ({ onOpenSearch, className = '' }) 
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
+      />
+
+      {/* Assumptions & Settings Modal */}
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
       />
     </>
   );
