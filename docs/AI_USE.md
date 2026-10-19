@@ -231,12 +231,28 @@
 - **Unit Testing Suite (`tests/traversability.test.ts`):**
   - 8 new unit tests covering: boundary test at exactly the vehicle slope limit, strict UNKNOWN impassability and risk-tolerant override, RSL > 27° blocking, caution band top 1/3 bracket, roughness thresholds (150m vs 300m), quadratic cost raster calculations, and assumption updates/resets (103/103 tests passing).
 
+### Phase R4: Mode A Direct Great-Circle Route & Zod Schemas
+- **Multi-Mode Route Types & Zod Schemas (`src/core/route/types.ts`):**
+  - Defined universal `RouteRequest`, `RouteResult`, `RouteSegment`, `RouteError`, `RouteMode`, and `SegmentFlag` contracts per Spec §8.1.
+  - Implemented runtime Zod validation schemas (`RouteRequestSchema`, `RouteResultSchema`, `RouteSegmentSchema`, `RouteErrorSchema`) for bidirectional serialization safety.
+- **Mode A Direct Router (`src/core/route/modeA.ts`):**
+  - Computed direct great-circle trajectory with spherical slerp sampling along the planetary arc (`detourRatio = 1.0`, `timeHours = null`, `confidence = 'UNVERIFIED'`).
+  - Added initial and final bearing telemetry.
+  - Extracted elevation and slope profile along arc using MOLA DEM sampling.
+  - Injected non-dismissible mandatory warnings:
+    1. `"Direct path. Not checked for terrain safety."`
+    2. `"This line crosses terrain steeper than the limit for {vehicle}."`
+    3. `"This line crosses areas with no terrain data."`
+- **Unit Testing Suite (`tests/modeA.test.ts`):**
+  - 6 new unit tests verifying exact haversine distance equivalence, mandatory warning injection, steep slope detection, no-data gap warnings, and Zod runtime schema round-trips (109/109 tests passing).
+
 ---
 
 ## Verification Status
-- **Test Suite:** 18 vitest test suites, 103 passing unit tests (`npm test`).
+- **Test Suite:** 19 vitest test suites, 109 passing unit tests (`npm test`).
 - **Production Build:** Clean TypeScript compilation and Vite minification with zero errors (`npm run build`).
 - **Runtime Verification:** Local static preview served cleanly on port 4173 with complete route lazy loading.
+
 
 
 
