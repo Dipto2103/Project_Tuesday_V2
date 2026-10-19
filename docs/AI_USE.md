@@ -183,9 +183,18 @@
 - **Popup Stacking Context Isolation (`index.css`, `MarsMap.tsx`):**
   - Resolved Leaflet popup pane (`z-index: 700`) bleeding over UI control aside panels (`z-20`) by applying `isolation: isolate` to `.leaflet-container` in `src/styles/index.css` and the outer map wrapper div in `MarsMap.tsx`.
 
+### Phase R0: Repository Inspection & Upgrade Inventory
+- **Repository Audit (`docs/UPGRADE_INVENTORY.md`):**
+  - Audited existing routing, rover, and terrain files against `MARS_LANTERN_SPEC.md` and `MARS_LANTERN_ROUTING_ROVER_SPEC.md`.
+  - Recorded baseline test execution (`npm test -- --run`): 16 test files, 80 tests passing (100% green).
+  - Recorded baseline production build (`npm run build`): 0 TypeScript errors, bundle completed in 29.45s.
+  - Analyzed current slope gradient formula (4-neighbor finite difference in `dem.ts`), grid resolution (8 ppd global, 128 ppd regional), cost function, and hard-coded rover waypoints in `roverTraverses.ts`.
+  - Reaffirmed map framework constraint (Leaflet 1.9 maintained, zero secondary 2D frameworks, `three` reserved for lazy-loaded 3D mesh viewer).
+
 ---
 
 ## Verification Status
 - **Test Suite:** 16 vitest test suites, 80 passing unit tests (`npm test`).
 - **Production Build:** Clean TypeScript compilation and Vite minification with zero errors (`npm run build`).
 - **Runtime Verification:** Local static preview served cleanly on port 4173 with complete route lazy loading.
+
