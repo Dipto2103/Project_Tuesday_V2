@@ -1,0 +1,134 @@
+[
+  {
+    "id": "perseverance-octavia-butler-landing",
+    "rover": "Perseverance",
+    "sol": 0,
+    "earthDate": "2021-02-18",
+    "name": "Octavia E. Butler Landing",
+    "category": "landing",
+    "lat": 18.4447,
+    "lonE": 77.4508,
+    "coordSource": "pds-track",
+    "elevationM": -2570,
+    "elevationSource": "pds",
+    "geology": "Flat basaltic crater floor volcanic paving with eolian ripples.",
+    "whyItMatters": "Jezero landing zone; terrain benchmark for autonomous terrain relative navigation (TRN).",
+    "sources": [
+      {
+        "title": "NASA Mars 2020 Landing Site",
+        "url": "https://mars.nasa.gov/mars2020/mission/where-is-the-rover/"
+      }
+    ],
+    "verify": false
+  },
+  {
+    "id": "perseverance-seitah-campaign",
+    "rover": "Perseverance",
+    "sol": 180,
+    "earthDate": "2021-08-20",
+    "name": "Séítah Crater Floor Dunes",
+    "category": "hazard",
+    "lat": 18.431,
+    "lonE": 77.435,
+    "coordSource": "pds-track",
+    "elevationM": -2560,
+    "elevationSource": "pds",
+    "geology": "Olivine-rich cumulate igneous rocks interspersed with impassable ripple fields.",
+    "whyItMatters": "Loose sandy ripples represent severe wheel entrapment hazard; required auto-navigation perimeter routing.",
+    "sources": [
+      {
+        "title": "NASA Mars 2020 Séítah Campaign",
+        "url": "https://mars.nasa.gov/mars2020/mission/science/results/"
+      }
+    ],
+    "verify": false
+  },
+  {
+    "id": "perseverance-delta-front-hawksbill",
+    "rover": "Perseverance",
+    "sol": 450,
+    "earthDate": "2022-05-25",
+    "name": "Hawksbill Gap (Delta Front)",
+    "category": "sample",
+    "lat": 18.4375,
+    "lonE": 77.421,
+    "coordSource": "pds-track",
+    "elevationM": -2535,
+    "elevationSource": "pds",
+    "geology": "Fine-grained deltaic mudstones deposited at the ancient lake mouth.",
+    "whyItMatters": "Prime astrobiological sampling target; sedimentary clays retain organic biosignature preservation potential.",
+    "sources": [
+      {
+        "title": "NASA Mars 2020 Delta Front Sample Caching",
+        "url": "https://mars.nasa.gov/mars2020/mission/science/results/"
+      }
+    ],
+    "verify": false
+  },
+  {
+    "id": "perseverance-three-forks-depot",
+    "rover": "Perseverance",
+    "sol": 660,
+    "earthDate": "2022-12-23",
+    "name": "Three Forks Sample Depot",
+    "category": "sample",
+    "lat": 18.429,
+    "lonE": 77.413,
+    "coordSource": "pds-track",
+    "elevationM": -2510,
+    "elevationSource": "pds",
+    "geology": "Low-relief delta front clearing suitable for future retrieval helicopter access.",
+    "whyItMatters": "First sample cache depot on another planet: 10 hermetically sealed titanium sample tubes placed on surface.",
+    "sources": [
+      {
+        "title": "NASA Mars Sample Return Depot",
+        "url": "https://mars.nasa.gov/mars2020/mission/science/results/"
+      }
+    ],
+    "verify": false
+  },
+  {
+    "id": "perseverance-neretva-vallis-inlet",
+    "rover": "Perseverance",
+    "sol": 950,
+    "earthDate": "2023-10-21",
+    "name": "Neretva Vallis River Inlet",
+    "category": "science_site",
+    "lat": 18.452,
+    "lonE": 77.365,
+    "coordSource": "pds-track",
+    "elevationM": -2435,
+    "elevationSource": "pds",
+    "geology": "Channel floor boulder conglomerates carved by high-energy fluvial currents.",
+    "whyItMatters": "Evidence of violent regional runoff; coarse gravels mark ancient drainage pathways into Jezero Crater.",
+    "sources": [
+      {
+        "title": "NASA Mars 2020 Upper Fan Campaign",
+        "url": "https://mars.nasa.gov/mars2020/mission/science/results/"
+      }
+    ],
+    "verify": false
+  },
+  {
+    "id": "perseverance-crater-rim-ascent",
+    "rover": "Perseverance",
+    "sol": 1200,
+    "earthDate": "2024-07-04",
+    "name": "Jezero Crater Rim Margin Unit",
+    "category": "drive_record",
+    "lat": 18.481,
+    "lonE": 77.332,
+    "coordSource": "pds-track",
+    "elevationM": -2390,
+    "elevationSource": "pds",
+    "geology": "Carbonate-bearing crustal bedrock fractured during the initial Jezero impact event.",
+    "whyItMatters": "Steep incline ascent tested rover autonomous navigation limits; carbonate outcrops expose pre-lake basement geology.",
+    "sources": [
+      {
+        "title": "NASA Mars 2020 Crater Rim Campaign",
+        "url": "https://mars.nasa.gov/mars2020/mission/science/results/"
+      }
+    ],
+    "verify": false
+  }
+]

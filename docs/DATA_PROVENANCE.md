@@ -56,3 +56,33 @@ Every numerical metric, cartographic layer, and resource claim in MARS LANTERN c
 - **Natural Satellites:** Phobos and Deimos positions are approximate equatorial models.
 - **Survival Model:** Life support numbers are simulation assumptions derived from NASA BVAD standards, not flight-certified flight rules.
 - **Trek Tiles:** Dependent on NASA WMTS server availability. The app provides a pre-rendered 4096×2048 offline fallback basemap (`public/tiles/fallback-global.jpg`) that engages automatically when offline or after 5 tile errors.
+
+---
+
+## 5. Rover Traverse Telemetry & PDS Column Definitions (Spec §10.2)
+
+### A. Curiosity (MSL) PDS PLACES (`MSL-M-ROVER-6-RDR-PLACES-V1.0`)
+- **PDS Label:** Detached PDS3 `.LBL` structure with fixed-width and comma-delimited tables.
+- **Discovered Column Schema:**
+  | Column Name | Byte Offset | Width | Data Type | Units | Description |
+  |---|---|---|---|---|---|
+  | `SOL` | 1 | 6 | `ASCII_INTEGER` | None | Mission sol count since landing |
+  | `SITE` | 8 | 5 | `ASCII_INTEGER` | None | Site index in rover motion counter (RMC) |
+  | `DRIVE` | 14 | 5 | `ASCII_INTEGER` | None | Drive index within current site |
+  | `LATITUDE` | 20 | 12 | `ASCII_REAL` | `DEGREE` | Planetocentric latitude (-90° to +90°) |
+  | `LONGITUDE` | 33 | 12 | `ASCII_REAL` | `DEGREE` | Planetocentric East longitude (0° to 360°E) |
+  | `ELEVATION` | 46 | 12 | `ASCII_REAL` | `METER` | Areoid elevation relative to MOLA datum |
+  | `ODOMETRY` | 59 | 12 | `ASCII_REAL` | `METER` | Cumulative surface drive distance |
+- **NASA MMGIS Live Feed:** `https://mars.nasa.gov/mmgis-maps/MSL/Layers/json/MSL_waypoints.json`
+- **Output Artifacts:** `public/data/tracks/curiosity.geojson` (Douglas–Peucker 20m simplified) and `curiosity.points.json` (columnar arrays: `sol`, `lat`, `lonE`, `elevM`, `odomKm`).
+
+### B. Perseverance (Mars 2020) Telemetry & MMGIS Feed
+- **NASA MMGIS Live Feed:** `https://mars.nasa.gov/mmgis-maps/M20/Layers/json/M20_waypoints.json`
+- **Discovered Attributes:**
+  - `sol`: Mission sol count
+  - `site` & `drive`: Rover Motion Counter indices
+  - `lat` / `lon`: Coordinates in planetocentric WGS-84/Mars system
+  - `elev_geoid`: Height relative to Mars areoid datum
+  - `easting` & `northing`: Local cartesian coordinates
+- **Output Artifacts:** `public/data/tracks/perseverance.geojson` and `perseverance.points.json`.
+

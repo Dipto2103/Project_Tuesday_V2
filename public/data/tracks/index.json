@@ -1,0 +1,46 @@
+[
+  {
+    "rover": "Curiosity",
+    "density": "dense",
+    "solMin": 3,
+    "solMax": 5045,
+    "odometryKm": 33.852,
+    "records": 1386,
+    "bbox": [
+      137.3528,
+      -4.8251,
+      137.4494,
+      -4.5891
+    ],
+    "source": {
+      "title": "NASA Planetary Data System (PDS) PLACES & MMGIS Localization Catalog",
+      "url": "https://mars.nasa.gov/mmgis-maps/MSL/Layers/json/MSL_waypoints.json",
+      "datasetId": "MSL-M-ROVER-6-RDR-PLACES-V1.0",
+      "retrieved": "2026-10-19"
+    },
+    "provenance": "NASA-DERIVED",
+    "etlVersion": "1.0.0"
+  },
+  {
+    "rover": "Perseverance",
+    "density": "dense",
+    "solMin": 13,
+    "solMax": 2009,
+    "odometryKm": 39.687,
+    "records": 706,
+    "bbox": [
+      77.2179,
+      18.42,
+      77.4631,
+      18.4997
+    ],
+    "source": {
+      "title": "NASA Mars 2020 Mission Telemetry & MMGIS Localization Catalog",
+      "url": "https://mars.nasa.gov/mmgis-maps/M20/Layers/json/M20_waypoints.json",
+      "datasetId": "M2020-ROVER-LOCALIZATION",
+      "retrieved": "2026-10-19"
+    },
+    "provenance": "NASA-DERIVED",
+    "etlVersion": "1.0.0"
+  }
+]

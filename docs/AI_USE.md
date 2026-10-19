@@ -262,12 +262,31 @@
 - **Unit Testing Suite (`tests/modeB.test.ts`):**
   - 7 new unit tests verifying: feasible path generation, exact determinism on identical requests, search cancellation, start snapping on steep terrain, shortest vs safest slope prioritization, mandatory warning presence, and `NO_ROUTE` detection on impossibly low slope limits (116/116 tests passing).
 
+### Phase R6: Traverse ETL from PDS & NASA Telemetry Feeds
+- **PDS Label & Data Parser (`src/core/rovers/pdsParser.ts`):**
+  - Implemented dynamic PDS3 label parser (`parsePdsLabel`) extracting column descriptors (`NAME`, `START_BYTE`, `BYTES`, `DATA_TYPE`, `UNITS`) rather than hardcoding offsets.
+  - Implemented table parser (`parsePdsTable`) supporting both fixed-width ASCII and delimited CSV streams with type casting.
+  - Implemented record normalizer (`extractRoverRecords`) converting East longitudes (0–360°E) and sorting strictly by sol and drive.
+- **Data Schemas & Types (`src/core/rovers/types.ts`):**
+  - Defined Zod schemas and TypeScript interfaces for `TraverseIndexEntry`, columnar `TrackPoints`, and `Milestone` per Spec §10.3.
+- **ETL Pipeline (`scripts/build-traverses.ts`):**
+  - Automated ingest from NASA MMGIS endpoints (`MSL_waypoints.json` for Curiosity and `M20_waypoints.json` for Perseverance) with offline fixture fallback (`tests/fixtures/pds_places_sample.lbl`).
+  - Implemented 5 km jump-detection QC gate and monotonic sol validation, outputting `docs/TRAVERSE_QC.md`.
+  - Implemented Douglas–Peucker line simplification (20 m tolerance) for GeoJSON line exports.
+  - Emitted columnar index files: `curiosity.points.json` (56.8 KB gz budget ≤ 2 MB) and `perseverance.points.json` (28.0 KB gz budget ≤ 1 MB), plus GeoJSON line tracks and `index.json`.
+  - Generated verified milestone sets in `public/data/milestones/` with survival rationale (`whyItMatters`).
+- **Data Provenance Log (`docs/DATA_PROVENANCE.md`):**
+  - Documented discovered column schemas, byte offsets, and live telemetry endpoints.
+- **Unit Testing Suite (`tests/roverTraverseEtl.test.ts`):**
+  - 6 new unit tests verifying: dynamic PDS label parsing from fixture, table parsing, Zod schema validation, odometry/sol monotonicity, landing site calibration (< 0.1 km for Bradbury, < 0.2 km for Jezero), and milestone bounding box containment (122/122 tests passing).
+
 ---
 
 ## Verification Status
-- **Test Suite:** 20 vitest test suites, 116 passing unit tests (`npm test`).
+- **Test Suite:** 21 vitest test suites, 122 passing unit tests (`npm test`).
 - **Production Build:** Clean TypeScript compilation and Vite minification with zero errors (`npm run build`).
 - **Runtime Verification:** Local static preview served cleanly on port 4173 with complete route lazy loading.
+
 
 
 
