@@ -6,7 +6,14 @@ import {
   displayToLon360,
   clampLat,
   haversineKm,
-  formatPlanetocentric
+  formatPlanetocentric,
+  initialBearingDeg,
+  finalBearingDeg,
+  destinationPoint,
+  greatCircleArc,
+  splitArcAtAntimeridian,
+  crossTrackKm,
+  pointToSegmentDistanceKm
 } from '../src/core/geo';
 
 describe('Planetary Geodesy (src/core/geo.ts)', () => {
@@ -59,4 +66,94 @@ describe('Planetary Geodesy (src/core/geo.ts)', () => {
     expect(formatPlanetocentric(18.4447, 77.4508)).toBe('18.44°N, 77.45°E');
     expect(formatPlanetocentric(-4.59, 137.44)).toBe('4.59°S, 137.44°E');
   });
+
+  it('computes exact 1° equatorial distance matching analytical 2*pi*R/360', () => {
+    const analyticalOneDegKm = (2 * Math.PI * MARS_RADIUS_KM) / 360; // ~59.159 km
+    const measuredOneDegKm = haversineKm({ lat: 0, lonE: 0 }, { lat: 0, lonE: 1 });
+    expect(measuredOneDegKm).toBeCloseTo(analyticalOneDegKm, 3);
+  });
+
+  it('calculates initial and final bearings with 0°–360° wrapping', () => {
+    // Due North
+    expect(initialBearingDeg({ lat: 0, lonE: 0 }, { lat: 10, lonE: 0 })).toBeCloseTo(0, 3);
+    // Due East
+    expect(initialBearingDeg({ lat: 0, lonE: 0 }, { lat: 0, lonE: 10 })).toBeCloseTo(90, 3);
+    // Due South
+    expect(initialBearingDeg({ lat: 10, lonE: 0 }, { lat: 0, lonE: 0 })).toBeCloseTo(180, 3);
+    // Due West
+    expect(initialBearingDeg({ lat: 0, lonE: 10 }, { lat: 0, lonE: 0 })).toBeCloseTo(270, 3);
+    // Wrapping across 0°/360° boundary: 355°E to 5°E is due East (90°)
+    expect(initialBearingDeg({ lat: 0, lonE: 355 }, { lat: 0, lonE: 5 })).toBeCloseTo(90, 3);
+    // 5°E to 355°E is due West (270°)
+    expect(initialBearingDeg({ lat: 0, lonE: 5 }, { lat: 0, lonE: 355 })).toBeCloseTo(270, 3);
+  });
+
+  it('calculates destinationPoint accurately along cardinal directions', () => {
+    const oneDegKm = (2 * Math.PI * MARS_RADIUS_KM) / 360;
+    // 1° North from (0, 0)
+    const northDest = destinationPoint({ lat: 0, lonE: 0 }, 0, oneDegKm);
+    expect(northDest.lat).toBeCloseTo(1.0, 3);
+    expect(northDest.lonE).toBeCloseTo(0.0, 3);
+
+    // 1° East from (0, 0)
+    const eastDest = destinationPoint({ lat: 0, lonE: 0 }, 90, oneDegKm);
+    expect(eastDest.lat).toBeCloseTo(0.0, 3);
+    expect(eastDest.lonE).toBeCloseTo(1.0, 3);
+  });
+
+  it('generates spherical great-circle arc with slerp', () => {
+    const a = { lat: 0, lonE: 0 };
+    const b = { lat: 0, lonE: 10 };
+    const arc = greatCircleArc(a, b, 20, 200);
+
+    expect(arc.length).toBeGreaterThanOrEqual(2);
+    expect(arc[0].lat).toBeCloseTo(0, 3);
+    expect(arc[0].lonE).toBeCloseTo(0, 3);
+    expect(arc[arc.length - 1].lat).toBeCloseTo(0, 3);
+    expect(arc[arc.length - 1].lonE).toBeCloseTo(10, 3);
+
+    // Midpoint along equator should be at ~5°E
+    const mid = arc[Math.floor(arc.length / 2)];
+    expect(mid.lat).toBeCloseTo(0, 1);
+    expect(mid.lonE).toBeCloseTo(5, 1);
+  });
+
+  it('splits great-circle arc at antimeridian (display lon ±180°)', () => {
+    // 170°E to 190°E crosses 180° (display lon jumps from 170° to -170°)
+    const a = { lat: 10, lonE: 170 };
+    const b = { lat: 10, lonE: 190 };
+    const arc = greatCircleArc(a, b, 10, 50);
+    const split = splitArcAtAntimeridian(arc);
+
+    expect(split.length).toBe(2);
+    // First segment ends at 180°E
+    expect(split[0][split[0].length - 1].lonE).toBeCloseTo(180, 1);
+    // Second segment starts at 180°E
+    expect(split[1][0].lonE).toBeCloseTo(180, 1);
+  });
+
+  it('computes perpendicular cross-track distance on a known right angle', () => {
+    const a = { lat: 0, lonE: 0 };
+    const b = { lat: 0, lonE: 10 }; // Along equator
+    const p = { lat: 1, lonE: 5 }; // 1° North of equator track
+
+    const oneDegKm = (2 * Math.PI * MARS_RADIUS_KM) / 360;
+    const xt = crossTrackKm(p, a, b);
+    expect(xt).toBeCloseTo(oneDegKm, 2);
+  });
+
+  it('handles poles correctly without NaN or singularity errors', () => {
+    const northPole = { lat: 90, lonE: 0 };
+    const southPole = { lat: -90, lonE: 180 };
+    const dist = haversineKm(northPole, southPole);
+    expect(dist).toBeCloseTo(Math.PI * MARS_RADIUS_KM, 1);
+
+    const arc = greatCircleArc(northPole, southPole, 100, 50);
+    expect(arc.length).toBeGreaterThan(2);
+    arc.forEach((pt) => {
+      expect(Number.isFinite(pt.lat)).toBe(true);
+      expect(Number.isFinite(pt.lonE)).toBe(true);
+    });
+  });
 });
+

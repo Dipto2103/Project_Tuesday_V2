@@ -183,18 +183,26 @@
 - **Popup Stacking Context Isolation (`index.css`, `MarsMap.tsx`):**
   - Resolved Leaflet popup pane (`z-index: 700`) bleeding over UI control aside panels (`z-20`) by applying `isolation: isolate` to `.leaflet-container` in `src/styles/index.css` and the outer map wrapper div in `MarsMap.tsx`.
 
-### Phase R0: Repository Inspection & Upgrade Inventory
-- **Repository Audit (`docs/UPGRADE_INVENTORY.md`):**
-  - Audited existing routing, rover, and terrain files against `MARS_LANTERN_SPEC.md` and `MARS_LANTERN_ROUTING_ROVER_SPEC.md`.
-  - Recorded baseline test execution (`npm test -- --run`): 16 test files, 80 tests passing (100% green).
-  - Recorded baseline production build (`npm run build`): 0 TypeScript errors, bundle completed in 29.45s.
-  - Analyzed current slope gradient formula (4-neighbor finite difference in `dem.ts`), grid resolution (8 ppd global, 128 ppd regional), cost function, and hard-coded rover waypoints in `roverTraverses.ts`.
-  - Reaffirmed map framework constraint (Leaflet 1.9 maintained, zero secondary 2D frameworks, `three` reserved for lazy-loaded 3D mesh viewer).
+### Phase R1: Geodesy Math Additions & Tests
+- **Geodesic Engine Extensions (`src/core/geo.ts`):**
+  - Added `LatLonE` interface as universal coordinate reference with Areocentric east-positive longitude.
+  - Implemented `greatCircleArc(a, b, stepKm, maxPoints)` using spherical unit-vector slerp with boundary safeguards.
+  - Implemented `splitArcAtAntimeridian(arc)` for equirectangular map polyline splitting to prevent wrap-around visual artifacts.
+  - Added `initialBearingDeg` (with dual function overloads supporting coordinate objects and discrete numbers, plus spherical shortest wrap across 0°/360°) and `finalBearingDeg`.
+  - Added `destinationPoint(a, bearingDeg, distKm, R)` for direct geodetic forward projection.
+  - Added `crossTrackKm(p, a, b, R)` for perpendicular cross-track distance to great-circle arcs.
+  - Added `pointToSegmentDistanceKm(p, a, b, R)` for finite segment distance calculations with endpoint projection clamping.
+  - Added dual overloads to `haversineKm` supporting both `(a: LatLonE, b: LatLonE)` and `(lat1, lon1, lat2, lon2)`.
+- **Unit Testing Suite (`tests/geo.test.ts`):**
+  - Added unit tests for analytical 1° equator distance ($2\pi R / 360 \approx 59.16\,\text{km}$).
+  - Added tests for bearings with 0°/360° wraps (e.g. $355^\circ\text{E} \to 5^\circ\text{E}$ is due East $90^\circ$).
+  - Added tests for `destinationPoint`, great-circle slerp interpolation, antimeridian splitting, right-angle cross-track distance, and pole singularities (87/87 tests passing).
 
 ---
 
 ## Verification Status
-- **Test Suite:** 16 vitest test suites, 80 passing unit tests (`npm test`).
+- **Test Suite:** 16 vitest test suites, 87 passing unit tests (`npm test`).
 - **Production Build:** Clean TypeScript compilation and Vite minification with zero errors (`npm run build`).
 - **Runtime Verification:** Local static preview served cleanly on port 4173 with complete route lazy loading.
+
 
