@@ -14,6 +14,7 @@ import {
   type Grid,
   type DerivedRasters,
   getElevationAt,
+  analyzeTerrainCell,
   computeDerivedRasters
 } from './terrainAnalysis';
 
@@ -226,6 +227,77 @@ export class DemStore {
       elevationM: null,
       hasData: false,
       resolution: 'none'
+    };
+  }
+
+  /**
+   * Convenience method to get elevation at coordinate (object or lat, lonE).
+   */
+  public getElevationAt(p: { lat: number; lonE: number }): number | null;
+  public getElevationAt(lat: number, lonE: number): number | null;
+  public getElevationAt(arg1: { lat: number; lonE: number } | number, arg2?: number): number | null {
+    const lat = typeof arg1 === 'object' ? arg1.lat : arg1;
+    const lonE = typeof arg1 === 'object' ? arg1.lonE : (arg2 ?? 0);
+    const sample = this.sample(lat, lonE);
+    return sample.elevationM;
+  }
+
+  /**
+   * Convenience method to sample terrain analysis (slope, aspect, roughness, hasData) at coordinate.
+   */
+  public getTerrainAt(p: { lat: number; lonE: number }): import('./terrainAnalysis').TerrainCell;
+  public getTerrainAt(lat: number, lonE: number): import('./terrainAnalysis').TerrainCell;
+  public getTerrainAt(arg1: { lat: number; lonE: number } | number, arg2?: number): import('./terrainAnalysis').TerrainCell {
+    const lat = typeof arg1 === 'object' ? arg1.lat : arg1;
+    const lonE = typeof arg1 === 'object' ? arg1.lonE : (arg2 ?? 0);
+    const cLat = clampLat(lat);
+    const nLon = normalizeLon360(lonE);
+
+    // 1. Check regional 128 ppd tiles first
+    for (const tile of this.tiles.values()) {
+      if (tile.resolution === 'regional_128ppd') {
+        const g = tile.grid;
+        const latMin = g.lat0 - g.height * g.dLatDeg;
+        const latMax = g.lat0;
+        const lonMin = g.lonE0;
+        const lonMax = g.lonE0 + g.width * g.dLonDeg;
+
+        if (cLat >= latMin && cLat <= latMax && nLon >= lonMin && nLon <= lonMax) {
+          const row = Math.round((g.lat0 - cLat) / g.dLatDeg);
+          const col = Math.round((nLon - g.lonE0) / g.dLonDeg);
+          const cell = analyzeTerrainCell(g, row, col);
+          if (cell.hasData) return cell;
+        }
+      }
+    }
+
+    // 2. Check global tile
+    for (const tile of this.tiles.values()) {
+      if (tile.resolution === 'global_8ppd') {
+        const g = tile.grid;
+        const row = Math.round((g.lat0 - cLat) / g.dLatDeg);
+        const col = Math.round((nLon - g.lonE0) / g.dLonDeg);
+        const cell = analyzeTerrainCell(g, row, col);
+        if (cell.hasData) return cell;
+      }
+    }
+
+    // 3. Fallback: check any tile
+    for (const tile of this.tiles.values()) {
+      const g = tile.grid;
+      const row = Math.round((g.lat0 - cLat) / g.dLatDeg);
+      const col = Math.round((nLon - g.lonE0) / g.dLonDeg);
+      if (row >= 0 && row < g.height && col >= 0 && col < g.width) {
+        return analyzeTerrainCell(g, row, col);
+      }
+    }
+
+    return {
+      slopeDeg: null,
+      aspectDeg: null,
+      roughnessM: null,
+      hasData: false,
+      polarDistortion: Math.abs(cLat) > 85.0
     };
   }
 

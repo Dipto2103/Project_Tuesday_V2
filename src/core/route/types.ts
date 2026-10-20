@@ -11,9 +11,18 @@
 import { z } from 'zod';
 import type { Provenance } from '../types';
 
-export type RouteMode = 'A_DIRECT' | 'B_TERRAIN_ASTAR' | 'C_ROVER_REFERENCE';
+export type RouteMode =
+  | 'A_DIRECT'
+  | 'B_TERRAIN_ASTAR'
+  | 'C_ROVER_REFERENCE'
+  | 'A'
+  | 'B'
+  | 'B_SHORTEST'
+  | 'B_SAFEST'
+  | 'C';
 export type SegmentFlag = 'OK' | 'CAUTION' | 'STEEP' | 'NO_DATA' | 'HAZARD' | 'UNVERIFIED';
 export type Vehicle = 'eva' | 'rover_unpressurised' | 'rover_pressurised';
+export type VehicleType = Vehicle;
 
 export interface LatLonE {
   lat: number;

@@ -66,7 +66,7 @@ export function planModeA(
   const arcPoints = greatCircleArc(from, to, Math.max(1.0, straightDistKm / 100), 120);
 
   const vehicleSlopeLimit =
-    assumptions[`slope_limit_${vehicle}_deg`] ?? getVehicleSlopeLimitDeg(vehicle);
+    assumptions?.[`slope_limit_${vehicle}_deg`] ?? getVehicleSlopeLimitDeg(vehicle);
 
   const segments: RouteSegment[] = [];
   let climbM = 0;
