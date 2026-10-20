@@ -1,0 +1,200 @@
+[
+  {
+    "id": "curiosity-bradbury-landing",
+    "rover": "Curiosity",
+    "sol": 0,
+    "earthDate": "2012-08-06",
+    "name": "Bradbury Landing",
+    "category": "landing",
+    "lat": -4.5895,
+    "lonE": 137.4417,
+    "coordSource": "pds-track",
+    "elevationM": -4501,
+    "elevationSource": "pds",
+    "geology": "Alluvial outwash plain beneath Mount Sharp foothills with gravel pavement.",
+    "whyItMatters": "Safe flat touchdown zone; baseline elevation and radiation reference for northern Gale Crater.",
+    "sources": [
+      {
+        "title": "NASA Mars Science Laboratory Landing",
+        "url": "https://mars.nasa.gov/msl/mission/overview/"
+      }
+    ],
+    "verify": false
+  },
+  {
+    "id": "curiosity-rocknest",
+    "rover": "Curiosity",
+    "sol": 60,
+    "earthDate": "2012-10-07",
+    "name": "Rocknest Sand Shadow",
+    "category": "science_site",
+    "lat": -4.5932,
+    "lonE": 137.458,
+    "coordSource": "pds-track",
+    "elevationM": -4512,
+    "elevationSource": "pds",
+    "geology": "Windblown sand shadow accumulation downwind of volcanic rocks.",
+    "whyItMatters": "First soil scoop analyzed by CheMin/SAM; established ubiquitous basaltic dust mineralogy and bound water content (1.5-3%).",
+    "sources": [
+      {
+        "title": "NASA MSL Rocknest Analysis",
+        "url": "https://mars.nasa.gov/msl/mission/science/results/"
+      }
+    ],
+    "verify": false
+  },
+  {
+    "id": "curiosity-yellowknife-bay",
+    "rover": "Curiosity",
+    "sol": 125,
+    "earthDate": "2012-12-17",
+    "name": "Yellowknife Bay (John Klein)",
+    "category": "sample",
+    "lat": -4.5901,
+    "lonE": 137.4725,
+    "coordSource": "pds-track",
+    "elevationM": -4520,
+    "elevationSource": "pds",
+    "geology": "Fine-grained mudstone (Sheepbed member) with smectite clay and calcium sulfate veins.",
+    "whyItMatters": "First drilled rock sample on Mars; proved ancient habitable lake environment with neutral pH and low salinity.",
+    "sources": [
+      {
+        "title": "NASA MSL Yellowknife Bay Results",
+        "url": "https://mars.nasa.gov/msl/mission/science/results/"
+      }
+    ],
+    "verify": false
+  },
+  {
+    "id": "curiosity-pahrump-hills",
+    "rover": "Curiosity",
+    "sol": 750,
+    "earthDate": "2014-09-11",
+    "name": "Pahrump Hills",
+    "category": "science_site",
+    "lat": -4.672,
+    "lonE": 137.382,
+    "coordSource": "pds-track",
+    "elevationM": -4462,
+    "elevationSource": "pds",
+    "geology": "Basal outcrop of the Murray Formation displaying laminated mudstones.",
+    "whyItMatters": "Transition from crater floor plains to the base of Mount Sharp; stratigraphy reveals long-lived lacustrine systems.",
+    "sources": [
+      {
+        "title": "NASA MSL Pahrump Hills Campaign",
+        "url": "https://mars.nasa.gov/msl/mission/science/results/"
+      }
+    ],
+    "verify": false
+  },
+  {
+    "id": "curiosity-bagnold-dunes",
+    "rover": "Curiosity",
+    "sol": 1180,
+    "earthDate": "2015-12-05",
+    "name": "Bagnold Dunes (Osprey Dune)",
+    "category": "hazard",
+    "lat": -4.715,
+    "lonE": 137.368,
+    "coordSource": "pds-track",
+    "elevationM": -4410,
+    "elevationSource": "pds",
+    "geology": "Active basaltic barchan and longitudinal dune field with ripple migration.",
+    "whyItMatters": "Severe wheel slippage and sinkage hazard for wheeled vehicles and human EVA; dark grains indicate physical saltation.",
+    "sources": [
+      {
+        "title": "NASA MSL Bagnold Dunes Investigation",
+        "url": "https://mars.nasa.gov/msl/mission/science/results/"
+      }
+    ],
+    "verify": false
+  },
+  {
+    "id": "curiosity-vera-rubin-ridge",
+    "rover": "Curiosity",
+    "sol": 1810,
+    "earthDate": "2017-09-08",
+    "name": "Vera Rubin Ridge",
+    "category": "science_site",
+    "lat": -4.761,
+    "lonE": 137.378,
+    "coordSource": "pds-track",
+    "elevationM": -4250,
+    "elevationSource": "pds",
+    "geology": "Topographically resistant erosion ridge rich in crystalline hematite.",
+    "whyItMatters": "Hematite ore signatures indicate intense hydrothermal or groundwater oxidation; potential ferric mineral resource.",
+    "sources": [
+      {
+        "title": "NASA MSL Vera Rubin Ridge Campaign",
+        "url": "https://mars.nasa.gov/msl/mission/science/results/"
+      }
+    ],
+    "verify": false
+  },
+  {
+    "id": "curiosity-glen-torridon",
+    "rover": "Curiosity",
+    "sol": 2300,
+    "earthDate": "2019-01-26",
+    "name": "Glen Torridon (Clay-Bearing Unit)",
+    "category": "sample",
+    "lat": -4.782,
+    "lonE": 137.395,
+    "coordSource": "pds-track",
+    "elevationM": -4205,
+    "elevationSource": "pds",
+    "geology": "Widespread smectite-rich sedimentary trough flanked by resistant ridges.",
+    "whyItMatters": "Hydrated clays retain structural OH/H2O; highest clay concentration on Mount Sharp, vital ISRU mineral hydration proxy.",
+    "sources": [
+      {
+        "title": "NASA MSL Glen Torridon Findings",
+        "url": "https://mars.nasa.gov/msl/mission/science/results/"
+      }
+    ],
+    "verify": false
+  },
+  {
+    "id": "curiosity-mount-sharp-sulfate",
+    "rover": "Curiosity",
+    "sol": 3250,
+    "earthDate": "2021-09-27",
+    "name": "Mount Sharp Sulfate-Bearing Unit",
+    "category": "science_site",
+    "lat": -4.845,
+    "lonE": 137.372,
+    "coordSource": "pds-track",
+    "elevationM": -4020,
+    "elevationSource": "pds",
+    "geology": "Nodular magnesium and calcium sulfate bedded strata recording climatic drying.",
+    "whyItMatters": "Sulfate evaporite minerals carry crystal-bound water; tracks planetary transition from wet to hyper-arid conditions.",
+    "sources": [
+      {
+        "title": "NASA MSL Sulfate Unit Ascent",
+        "url": "https://mars.nasa.gov/msl/mission/science/results/"
+      }
+    ],
+    "verify": false
+  },
+  {
+    "id": "curiosity-gediz-vallis-ridge",
+    "rover": "Curiosity",
+    "sol": 4120,
+    "earthDate": "2024-03-08",
+    "name": "Gediz Vallis Ridge",
+    "category": "hazard",
+    "lat": -4.882,
+    "lonE": 137.361,
+    "coordSource": "pds-track",
+    "elevationM": -3890,
+    "elevationSource": "pds",
+    "geology": "Steep debris-flow ridge with boulder-strewn gravel cap carved by violent water flows.",
+    "whyItMatters": "Steep slopes (> 20°) and boulder field create high rollover hazard; proves catastrophic late-stage water surges down Mount Sharp.",
+    "sources": [
+      {
+        "title": "NASA MSL Gediz Vallis Ridge Reached",
+        "url": "https://mars.nasa.gov/msl/mission/science/results/"
+      }
+    ],
+    "verify": false
+  }
+]

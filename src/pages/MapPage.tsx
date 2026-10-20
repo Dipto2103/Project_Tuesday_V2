@@ -28,6 +28,8 @@ import { OriginBadge } from '../components/ui/OriginBadge';
 import { LocationReportDrawer } from '../components/location/LocationReportDrawer';
 import { useMarsLayers } from '../hooks/useMarsLayers';
 import { useRoutePlanner } from '../hooks/useRoutePlanner';
+import { useRouteStore } from '../state/routeStore';
+import type { RouteResult } from '../core/route/types';
 import { SCIENCE_CATALOG } from '../data/scienceCatalog';
 import { HAZARDS_CATALOG } from '../data/hazardsCatalog';
 import { ALL_ROVER_TRAVERSES } from '../data/roverTraverses';
@@ -79,6 +81,7 @@ export const MapPage: React.FC = () => {
 
   // Mars layers & routing hooks
   const { layers, activeBaseLayer, activeOverlays, toggleLayer, setActiveBaseLayer } = useMarsLayers();
+  const store = useRouteStore();
   const {
     startCoord,
     destCoord,
@@ -87,6 +90,31 @@ export const MapPage: React.FC = () => {
     primaryRoute,
     alternativeRoute
   } = useRoutePlanner();
+
+  const storedPrimaryRoute: PlannedRoute | null = useMemo(() => {
+    const successRoute = store.results.find((r): r is RouteResult => (r as any).ok === true);
+    if (!successRoute || successRoute.geometry.length === 0) return null;
+    const waypoints = successRoute.geometry.map((pt) => ({ latitude: pt.lat, longitude: pt.lonE }));
+    return {
+      id: 'stored-route',
+      name: `${successRoute.mode} Route`,
+      start: waypoints[0],
+      destination: waypoints[waypoints.length - 1],
+      waypoints,
+      distanceKm: successRoute.distanceKm,
+      estimatedDurationHours: successRoute.timeHours,
+      method: successRoute.mode === 'A_DIRECT' ? 'direct' : successRoute.mode === 'C_ROVER_REFERENCE' ? 'historical-rover-reference' : 'terrain-aware',
+      terrainAssessmentAvailable: true,
+      maxSlopeDeg: successRoute.maxSlopeDeg ?? undefined,
+      averageSlopeDeg: successRoute.meanSlopeDeg ?? undefined,
+      cumulativeElevationGainMeters: successRoute.climbM || 0,
+      dataLimitations: successRoute.warnings,
+      hazardsIntersected: [],
+      scienceTargetsNear: []
+    };
+  }, [store.results]);
+
+  const activePrimaryRoute = storedPrimaryRoute || primaryRoute;
 
   // Load checkpoints
   useEffect(() => {
@@ -529,7 +557,7 @@ export const MapPage: React.FC = () => {
           selectedCoord={selectedCoord}
           checkpoints={checkpoints}
           activeCategories={activeCategories}
-          primaryRoute={primaryRoute}
+          primaryRoute={activePrimaryRoute}
           alternativeRoute={alternativeRoute}
           sciencePOIs={SCIENCE_CATALOG}
           hazards={HAZARDS_CATALOG}
@@ -631,19 +659,19 @@ export const MapPage: React.FC = () => {
         </div>
 
         {/* Bottom Route Bar (When Route Exists) */}
-        {primaryRoute && (
+        {activePrimaryRoute && (
           <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 px-6 py-2.5 rounded-2xl bg-[#101114]/90 backdrop-blur-xl border border-[#56D9E8]/40 shadow-2xl flex items-center gap-6 text-xs font-mono">
             <div>
               <span className="text-[#A0A0A0] text-[10px] uppercase block">TRAVERSE</span>
-              <span className="font-bold text-[#56D9E8]">{primaryRoute.distanceKm.toFixed(1)} km</span>
+              <span className="font-bold text-[#56D9E8]">{activePrimaryRoute.distanceKm.toFixed(1)} km</span>
             </div>
             <div>
               <span className="text-[#A0A0A0] text-[10px] uppercase block">TIME</span>
-              <span className="font-bold text-[#E7E1D8]">{((primaryRoute.estimatedDurationHours || 78.4) / 24.66).toFixed(1)} sols</span>
+              <span className="font-bold text-[#E7E1D8]">{((activePrimaryRoute.estimatedDurationHours || 78.4) / 24.66).toFixed(1)} sols</span>
             </div>
             <div>
               <span className="text-[#A0A0A0] text-[10px] uppercase block">SLOPE RISK</span>
-              <span className="font-bold text-[#4ADE80]">{(primaryRoute.maxSlopeDeg || 14) < 15 ? 'Safe' : 'Caution'}</span>
+              <span className="font-bold text-[#4ADE80]">{(activePrimaryRoute.maxSlopeDeg || 14) < 15 ? 'Safe' : 'Caution'}</span>
             </div>
             <Button
               variant="primary"

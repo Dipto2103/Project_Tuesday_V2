@@ -86,3 +86,9 @@ Every numerical metric, cartographic layer, and resource claim in MARS LANTERN c
   - `easting` & `northing`: Local cartesian coordinates
 - **Output Artifacts:** `public/data/tracks/perseverance.geojson` and `perseverance.points.json`.
 
+### C. OpenPlanetary Basemap Projection Decision (Spec §4.3)
+- **Status:** Evaluated.
+- **Projection:** Web Mercator (`EPSG:3857`) tiled pyramid.
+- **Decision:** MARS LANTERN strictly standardizes on Equirectangular (`EPSG:4326`) for all 2D planetary mapping matching NASA Trek WMTS capabilities. Mixing Web Mercator into an `EPSG:4326` Leaflet CRS causes non-linear latitude stretching and marker drift. Therefore, OpenPlanetary Web Mercator tiles are excluded from the 2D base layer list and reserved as a texture option in the 3D globe / terrain viewer.
+
+
