@@ -303,3 +303,5 @@ export function compareRoutes(
     rows
   };
 }
+
+export const buildRouteComparisonTable = compareRoutes;
